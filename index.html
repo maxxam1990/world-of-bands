@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World of Bands Florida — 12 Bands. 2 Divisions. 1 Stage.</title>
+<meta name="description" content="World of Bands Florida is an inter-school band competition presented by The World of Music School. 12 student bands, 2 divisions, 1 professional stage — plus masterclasses, awards, and an unforgettable day of live music.">
+<!-- Social sharing (update og:url/og:image to the live domain when deployed) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="World of Bands Florida — 12 Bands. 2 Divisions. 1 Stage.">
+<meta property="og:description" content="An inter-school band championship in Central Florida, October 2026. Presented by The World of Music School. Learn. Perform. Connect.">
+<meta property="og:image" content="assets/img/hero-stage.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/img/crest.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<nav id="nav">
+  <a class="nav-logo" href="#top"><img src="assets/img/wordmark.png" alt="World of Bands Florida"></a>
+  <div class="nav-links">
+    <a href="#about"><span data-en>The Event</span><span data-es>El Evento</span></a>
+    <a href="#format"><span data-en>Format</span><span data-es>Formato</span></a>
+    <a href="#day"><span data-en>Event Day</span><span data-es>El Día</span></a>
+    <a href="#awards"><span data-en>Awards</span><span data-es>Premios</span></a>
+    <a href="#gallery"><span data-en>Gallery</span><span data-es>Galería</span></a>
+    <a href="#videos"><span data-en>Videos</span><span data-es>Videos</span></a>
+    <a href="#pricing"><span data-en>Pricing</span><span data-es>Precios</span></a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-sw">
+      <button id="btn-en" class="on" onclick="setLang('en')">EN</button>
+      <button id="btn-es" onclick="setLang('es')">ES</button>
+    </div>
+    <a href="#register" class="nav-cta"><span data-en>Register Your School</span><span data-es>Inscribe tu Escuela</span></a>
+    <button class="nav-burger" id="burger" onclick="toggleMob()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mob-nav" id="mob-nav">
+  <a href="#about" onclick="toggleMob()"><span data-en>The Event</span><span data-es>El Evento</span></a>
+  <a href="#format" onclick="toggleMob()"><span data-en>Format</span><span data-es>Formato</span></a>
+  <a href="#day" onclick="toggleMob()"><span data-en>Event Day</span><span data-es>El Día</span></a>
+  <a href="#awards" onclick="toggleMob()"><span data-en>Awards</span><span data-es>Premios</span></a>
+  <a href="#gallery" onclick="toggleMob()"><span data-en>Gallery</span><span data-es>Galería</span></a>
+  <a href="#videos" onclick="toggleMob()"><span data-en>Videos</span><span data-es>Videos</span></a>
+  <a href="#pricing" onclick="toggleMob()"><span data-en>Pricing</span><span data-es>Precios</span></a>
+  <a href="#register" class="btn btn-red" onclick="toggleMob()"><span data-en>Register Your School</span><span data-es>Inscribe tu Escuela</span></a>
+  <div class="lang-sw" style="margin-top:10px">
+    <button id="mob-btn-en" class="on" onclick="setLang('en')">EN</button>
+    <button id="mob-btn-es" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero" id="top">
+  <div class="hero-bg"><img src="assets/img/botb-stage.jpg" alt="World of Bands Florida stage"></div>
+  <div class="hero-inner">
+    <span class="hero-kicker"><span class="dot"></span><span data-en>Inter-School Band Championship · Central Florida · October 2026</span><span data-es>Campeonato de Bandas entre Escuelas · Florida Central · Octubre 2026</span></span>
+    <h1>WORLD OF BANDS<br><span class="fl">FLORIDA</span></h1>
+    <div class="hero-tag">12 <span data-en>BANDS</span><span data-es>BANDAS</span> · 2 <span data-en>DIVISIONS</span><span data-es>DIVISIONES</span> · <em>1 <span data-en>STAGE</span><span data-es>ESCENARIO</span></em></div>
+    <p class="hero-sub">
+      <span data-en>A full-day live music championship where student bands from four music schools battle on a professional stage — with real judges, real awards, masterclasses, and a crowd that decides who rises.</span>
+      <span data-es>Un campeonato de música en vivo de día completo donde bandas estudiantiles de cuatro escuelas de música compiten en un escenario profesional — con jueces reales, premios reales, masterclasses y un público que decide quién sube.</span>
+    </p>
+    <div class="hero-ctas">
+      <a href="#register" class="btn btn-red"><span data-en>Register Your School</span><span data-es>Inscribe tu Escuela</span></a>
+      <a href="#format" class="btn btn-ghost"><span data-en>See How It Works</span><span data-es>Cómo Funciona</span></a>
+    </div>
+    <div class="hero-presented"><span data-en>Presented by</span><span data-es>Presentado por</span> <b>The World of Music School</b> · ★ 4.9 Google · <span data-en>Voted Orlando's Best Music Lessons 2024</span><span data-es>Votada Mejor Escuela de Música de Orlando 2024</span></div>
+  </div>
+  <div class="hero-scroll">▾</div>
+</header>
+
+<!-- marquee -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee-track">
+    <span>WORLD OF BANDS FLORIDA</span><span>12 BANDS · 2 DIVISIONS · 1 STAGE</span><span>LEARN · PERFORM · CONNECT</span><span>LIVE YOUR SOUND</span><span>ONE STAGE · ONE DREAM</span>
+  </div>
+</div>
+
+<!-- ==================== ABOUT ==================== -->
+<section id="about">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>The Event</span><span data-es>El Evento</span></div>
+      <h2 class="sec-title"><span data-en>More Than a Competition.</span><span data-es>Más que una Competencia.</span></h2>
+      <p class="sec-lead">
+        <span data-en>World of Bands Florida brings together student bands, music schools, coaches, families, and the community for one electric day. Young musicians perform on a professional stage, get feedback from industry judges, attend masterclasses, and compete for band and individual awards. But it's more than the trophies — it's a day of socializing, jamming, and meeting musicians from other schools. Everyone goes home with new friends and an experience they'll never forget.</span>
+        <span data-es>World of Bands Florida reúne a bandas estudiantiles, escuelas de música, coaches, familias y la comunidad en un día eléctrico. Los jóvenes músicos tocan en un escenario profesional, reciben feedback de jueces de la industria, asisten a masterclasses y compiten por premios de banda e individuales. Pero es más que los trofeos — es un día para socializar, tocar y conocer músicos de otras escuelas. Todos vuelven a casa con nuevos amigos y una experiencia inolvidable.</span>
+      </p>
+    </div>
+
+    <div class="stats rv">
+      <div class="stat"><b><i>4</i></b><span data-en>Music Schools</span><span data-es>Escuelas de Música</span></div>
+      <div class="stat"><b><i>12</i></b><span data-en>Competing Bands</span><span data-es>Bandas Compitiendo</span></div>
+      <div class="stat"><b><i>2</i></b><span data-en>Competitive Divisions</span><span data-es>Divisiones Competitivas</span></div>
+      <div class="stat"><b><i>36+</i></b><span data-en>Awards on the Line</span><span data-es>Premios en Juego</span></div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar rv">
+        <span class="num">01</span>
+        <h3><span data-en>Learn</span><span data-es>Aprende</span></h3>
+        <p><span data-en>Four live masterclasses during the event day — from owning the stage to making a living in music and using AI to power your ideas.</span><span data-es>Cuatro masterclasses en vivo durante el evento — desde adueñarte del escenario hasta vivir de la música y usar IA para potenciar tus ideas.</span></p>
+      </div>
+      <div class="pillar rv">
+        <span class="num">02</span>
+        <h3><span data-en>Perform</span><span data-es>Toca</span></h3>
+        <p><span data-en>Every band performs twice on a professional stage with pro sound and lighting — a qualifying set and a full division set. No band is eliminated.</span><span data-es>Cada banda toca dos veces en un escenario profesional con sonido e iluminación pro — un set clasificatorio y un set completo de división. Ninguna banda es eliminada.</span></p>
+      </div>
+      <div class="pillar rv">
+        <span class="num">03</span>
+        <h3><span data-en>Connect</span><span data-es>Conecta</span></h3>
+        <p><span data-en>Meet musicians from other schools, share the backstage, trade ideas — and end the day with one giant group photo of every band in the building.</span><span data-es>Conoce músicos de otras escuelas, comparte el backstage, intercambia ideas — y cierra el día con una foto grupal gigante con todas las bandas.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FORMAT ==================== -->
+<section id="format">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>The Format</span><span data-es>El Formato</span></div>
+      <h2 class="sec-title"><span data-en>Every Band Performs Twice. Every Band Can Win.</span><span data-es>Cada Banda Toca Dos Veces. Cada Banda Puede Ganar.</span></h2>
+      <p class="sec-lead">
+        <span data-en>Three competitive stages. After qualifying, all scores reset to zero — so every band starts its division with an equal shot at the title.</span>
+        <span data-es>Tres etapas competitivas. Después de la clasificación, todos los puntajes vuelven a cero — así cada banda empieza su división con las mismas posibilidades de ganar.</span>
+      </p>
+    </div>
+
+    <div class="flow rv">
+      <div class="flow-step">
+        <span class="tag"><span data-en>Stage 1</span><span data-es>Etapa 1</span></span>
+        <h3><span data-en>Qualifying Round</span><span data-es>Ronda Clasificatoria</span></h3>
+        <p><span data-en>All 12 bands play a 5-minute set of their strongest material in front of the judges and the crowd.</span><span data-es>Las 12 bandas tocan un set de 5 minutos con su mejor material frente a los jueces y el público.</span></p>
+        <ul>
+          <li><span data-en>Judges score 4 categories</span><span data-es>Los jueces puntúan 4 categorías</span></li>
+          <li><span data-en>Audience votes Crowd's Favorite</span><span data-es>El público vota su Favorita</span></li>
+        </ul>
+      </div>
+      <div class="flow-arrow"><span>➜</span></div>
+      <div class="flow-step">
+        <span class="tag"><span data-en>Stage 2</span><span data-es>Etapa 2</span></span>
+        <h3><span data-en>Division Placement</span><span data-es>Colocación de División</span></h3>
+        <p><span data-en>The judges' top 5 advance to Division 1 — and the 6th spot is claimed by the audience's Crowd's Favorite vote. The other six form Division 2.</span><span data-es>El top 5 de los jueces avanza a División 1 — y el 6.º lugar lo decide el voto Favorito del Público. Las otras seis forman la División 2.</span></p>
+        <ul>
+          <li><span data-en>All scores reset to zero</span><span data-es>Todos los puntajes vuelven a cero</span></li>
+          <li><span data-en>Nobody goes home</span><span data-es>Nadie queda eliminado</span></li>
+        </ul>
+      </div>
+      <div class="flow-arrow"><span>➜</span></div>
+      <div class="flow-step hot">
+        <span class="tag"><span data-en>Stage 3</span><span data-es>Etapa 3</span></span>
+        <h3><span data-en>Division Finals</span><span data-es>Finales de División</span></h3>
+        <p><span data-en>Each division battles with full 10-minute championship sets — pro lighting, band intros on screen, and two complete awards ceremonies.</span><span data-es>Cada división compite con sets de campeonato de 10 minutos — iluminación pro, presentaciones en pantalla y dos ceremonias de premiación completas.</span></p>
+        <ul>
+          <li><span data-en>Division 2 competition &amp; awards</span><span data-es>Competencia y premios División 2</span></li>
+          <li><span data-en>Division 1 Championship &amp; awards</span><span data-es>Campeonato y premios División 1</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divisions">
+      <div class="division d1 rv">
+        <h3><span data-en>Division 1</span><span data-es>División 1</span></h3>
+        <div class="sub"><span data-en>The Top of the Top</span><span data-es>Lo Mejor de lo Mejor</span></div>
+        <p><span data-en>The six strongest bands of the day. The main event of the night, presented with full production.</span><span data-es>Las seis bandas más fuertes del día. El evento principal de la noche, con producción completa.</span></p>
+        <ul>
+          <li><span data-en>Judges' top five from qualifying</span><span data-es>Top cinco de los jueces en la clasificación</span></li>
+          <li><span data-en>+ the qualifying round's Crowd's Favorite</span><span data-es>+ la Favorita del Público de la clasificación</span></li>
+          <li><span data-en>10-minute championship sets</span><span data-es>Sets de campeonato de 10 minutos</span></li>
+          <li><span data-en>Division 1 Champion crowned live</span><span data-es>Campeón de División 1 coronado en vivo</span></li>
+          <li><span data-en>Its own Crowd's Favorite Award</span><span data-es>Su propio Premio Favorito del Público</span></li>
+        </ul>
+      </div>
+      <div class="division d2 rv">
+        <h3><span data-en>Division 2</span><span data-es>División 2</span></h3>
+        <div class="sub"><span data-en>Everything Still to Win</span><span data-es>Todo por Ganar</span></div>
+        <p><span data-en>The six bands that didn't make Division 1 — with a fresh scoreboard, its own podium, category recognitions, individual awards, and awards ceremony.</span><span data-es>Las seis bandas que no llegaron a la División 1 — con marcador nuevo, su propio podio, reconocimientos por categoría, premios individuales y ceremonia de premiación.</span></p>
+        <ul>
+          <li><span data-en>Complete 10-minute competitive sets</span><span data-es>Sets competitivos completos de 10 minutos</span></li>
+          <li><span data-en>1st, 2nd &amp; 3rd place trophies</span><span data-es>Trofeos de 1.º, 2.º y 3.º lugar</span></li>
+          <li><span data-en>Individual musician awards</span><span data-es>Premios individuales por músico</span></li>
+          <li><span data-en>Official Division 2 Awards Ceremony</span><span data-es>Ceremonia oficial de premios División 2</span></li>
+          <li><span data-en>Its own Crowd's Favorite Award</span><span data-es>Su propio Premio Favorito del Público</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="crowd-note rv">
+      <div class="ic">🗳️</div>
+      <p><b><span data-en>The crowd votes three times.</span><span data-es>El público vota tres veces.</span></b> <span data-en>① During qualifying, the audience's favorite band claims the sixth spot in Division 1. ② Division 1 has its own Crowd's Favorite Award. ③ Division 2 has one too. Bringing your fans always matters.</span><span data-es>① Durante la clasificación, la banda favorita del público gana el sexto lugar de la División 1. ② La División 1 tiene su propio Premio Favorito del Público. ③ La División 2 también. Traer a tus fans siempre cuenta.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== JUDGING ==================== -->
+<section id="judging">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>Official Judging</span><span data-es>Evaluación Oficial</span></div>
+      <h2 class="sec-title"><span data-en>Four Categories. One Score.</span><span data-es>Cuatro Categorías. Un Puntaje.</span></h2>
+      <p class="sec-lead"><span data-en>Qualified judges evaluate every performance — in qualifying and in the divisions — across the same four official categories.</span><span data-es>Jueces calificados evalúan cada presentación — en la clasificación y en las divisiones — con las mismas cuatro categorías oficiales.</span></p>
+    </div>
+    <div class="judge-grid">
+      <div class="judge-card rv">
+        <div class="ic">🎼</div><span class="pct">01</span>
+        <h3><span data-en>Musicality</span><span data-es>Musicalidad</span></h3>
+        <p><span data-en>Pitch, timing, execution, balance, dynamics, transitions — the overall musical quality of the set.</span><span data-es>Afinación, tiempo, ejecución, balance, dinámicas, transiciones — la calidad musical del set.</span></p>
+      </div>
+      <div class="judge-card rv">
+        <div class="ic">🔥</div><span class="pct">02</span>
+        <h3><span data-en>Stage Presence</span><span data-es>Presencia Escénica</span></h3>
+        <p><span data-en>Confidence, movement, use of the stage, band chemistry, professionalism, and recovery under pressure.</span><span data-es>Confianza, movimiento, uso del escenario, química de banda, profesionalismo y recuperación bajo presión.</span></p>
+      </div>
+      <div class="judge-card rv">
+        <div class="ic">🎨</div><span class="pct">03</span>
+        <h3><span data-en>Creativity</span><span data-es>Creatividad</span></h3>
+        <p><span data-en>Original arrangements, bold interpretations, medleys, original music, and a performance identity that's yours.</span><span data-es>Arreglos originales, interpretaciones audaces, medleys, música original y una identidad escénica propia.</span></p>
+      </div>
+      <div class="judge-card rv">
+        <div class="ic">⚡</div><span class="pct">04</span>
+        <h3><span data-en>Crowd Impact</span><span data-es>Impacto en el Público</span></h3>
+        <p><span data-en>Connection, energy, memorable moments, entertainment value — the effect your band creates inside the venue.</span><span data-es>Conexión, energía, momentos memorables, valor de entretenimiento — el efecto que tu banda crea en el venue.</span></p>
+      </div>
+    </div>
+    <div class="crowd-note rv">
+      <div class="ic">⚖️</div>
+      <p><b><span data-en>An independent, unbiased panel.</span><span data-es>Un panel independiente e imparcial.</span></b> <span data-en>No judge will be a teacher at any participating school. The panel is made up of music industry professionals — musicians, producers, and other unbiased experts — and will be publicly presented before the event, so every school knows exactly who's scoring.</span><span data-es>Ningún juez será maestro de una escuela participante. El panel está formado por profesionales de la industria musical — músicos, productores y otros expertos imparciales — y será presentado públicamente antes del evento, para que cada escuela sepa exactamente quién puntúa.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== EVENT DAY ==================== -->
+<section id="day">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>Event Day</span><span data-es>El Día del Evento</span></div>
+      <h2 class="sec-title"><span data-en>One Full Day of Live Music.</span><span data-es>Un Día Completo de Música en Vivo.</span></h2>
+      <p class="sec-lead"><span data-en>From morning check-in to the final group photo — here's how the day unfolds.</span><span data-es>Desde el check-in de la mañana hasta la foto grupal final — así se vive el día.</span></p>
+    </div>
+    <div class="timeline">
+      <div class="t-item rv"><div class="t-time">9:15 AM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Band Arrival &amp; Check-In</span><span data-es>Llegada y Check-In de Bandas</span></h4><p><span data-en>Schools confirm lineups, songs, instruments, and technical needs.</span><span data-es>Las escuelas confirman alineaciones, canciones, instrumentos y necesidades técnicas.</span></p></div></div>
+      <div class="t-item rv"><div class="t-time">9:45 AM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Doors Open — Lobby Experience</span><span data-es>Apertura de Puertas — Experiencia de Lobby</span></h4><p><span data-en>Food, merch, sponsor tables, raffles, photography area.</span><span data-es>Comida, merch, mesas de patrocinadores, rifas, área de fotografía.</span></p></div></div>
+      <div class="t-item rv"><div class="t-time">10:00 AM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Opening Ceremony</span><span data-es>Ceremonia de Apertura</span></h4><p><span data-en>The 4 schools, 12 bands, and judges are introduced live.</span><span data-es>Se presentan en vivo las 4 escuelas, 12 bandas y los jueces.</span></p></div></div>
+      <div class="t-item big rv"><div class="t-time">10:15 AM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Qualifying Round — All 12 Bands</span><span data-es>Ronda Clasificatoria — Las 12 Bandas</span></h4><p><span data-en>Five-minute sets. Judges score, audience votes Crowd's Favorite.</span><span data-es>Sets de cinco minutos. Los jueces puntúan, el público vota a su Favorita.</span></p></div></div>
+      <div class="t-item rv"><div class="t-time">12:30 PM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Masterclasses 1 &amp; 3 — Simultaneously</span><span data-es>Masterclasses 1 y 3 — Simultáneas</span></h4><p><span data-en>"How to Own the Stage as a Band" and "How to Earn a Living as a Musician" run at the same time — pick your room.</span><span data-es>"Cómo Adueñarte del Escenario como Banda" y "Cómo Vivir de la Música" al mismo tiempo — elige tu sala.</span></p></div></div>
+      <div class="t-item big rv"><div class="t-time">1:10 PM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Division Placement Announcement</span><span data-es>Anuncio de Divisiones</span></h4><p><span data-en>Top 5 by judges + the Crowd's Favorite go to Division 1. Scores reset to zero.</span><span data-es>Top 5 de los jueces + la Favorita del Público van a División 1. Los puntajes vuelven a cero.</span></p></div></div>
+      <div class="t-item rv"><div class="t-time">1:25 PM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Lunch &amp; Lobby Experience</span><span data-es>Almuerzo y Experiencia de Lobby</span></h4><p><span data-en>Food, merch, raffles, photos with the bands.</span><span data-es>Comida, merch, rifas, fotos con las bandas.</span></p></div></div>
+      <div class="t-item rv"><div class="t-time">2:10 PM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Masterclasses 2 &amp; 4 — Simultaneously</span><span data-es>Masterclasses 2 y 4 — Simultáneas</span></h4><p><span data-en>"Instrument &amp; Band Skills" and "How to Use AI to Leverage Music Ideas" run at the same time — pick your room.</span><span data-es>"Habilidades de Instrumento y Banda" y "Cómo Usar la IA para Potenciar Ideas Musicales" al mismo tiempo — elige tu sala.</span></p></div></div>
+      <div class="t-item big rv"><div class="t-time">3:00 PM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Division 2 Competition</span><span data-es>Competencia División 2</span></h4><p><span data-en>Six bands, 10-minute sets, followed by the Division 2 Awards Ceremony at 5:00 PM.</span><span data-es>Seis bandas, sets de 10 minutos, seguido de la Ceremonia de Premios División 2 a las 5:00 PM.</span></p></div></div>
+      <div class="t-item big rv"><div class="t-time">5:40 PM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Division 1 Championship</span><span data-es>Campeonato División 1</span></h4><p><span data-en>Full production, band intros on screen, six championship sets.</span><span data-es>Producción completa, presentaciones en pantalla, seis sets de campeonato.</span></p></div></div>
+      <div class="t-item big rv"><div class="t-time">7:40 PM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Division 1 Awards Ceremony</span><span data-es>Ceremonia de Premios División 1</span></h4><p><span data-en>The Division 1 Champion is crowned — with a possible encore.</span><span data-es>Se corona al Campeón de la División 1 — con posible encore.</span></p></div></div>
+      <div class="t-item rv"><div class="t-time">8:10 PM</div><div class="t-dotcol"><div class="t-dot"></div></div><div class="t-body"><h4><span data-en>Closing Ceremony &amp; Final Group Photo</span><span data-es>Ceremonia de Cierre y Foto Grupal Final</span></h4><p><span data-en>All 12 bands, coaches, judges, and staff — one photo, one family.</span><span data-es>Las 12 bandas, coaches, jueces y staff — una foto, una familia.</span></p></div></div>
+    </div>
+    <p class="fine rv"><span data-en>* This is our preliminary timeline — times and activities are subject to change before the event.</span><span data-es>* Este es nuestro horario preliminar — los horarios y las actividades pueden cambiar antes del evento.</span></p>
+  </div>
+</section>
+
+<!-- ==================== AWARDS ==================== -->
+<section id="awards">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>Awards</span><span data-es>Premios</span></div>
+      <h2 class="sec-title"><span data-en>36+ Ways to Leave a Winner.</span><span data-es>Más de 36 Formas de Salir Ganando.</span></h2>
+      <p class="sec-lead"><span data-en>Band trophies, category recognitions, and individual musician awards — presented separately in each division so talent gets recognized everywhere.</span><span data-es>Trofeos de banda, reconocimientos por categoría y premios individuales — entregados por separado en cada división para reconocer el talento en todas partes.</span></p>
+    </div>
+    <div class="awards-grid">
+      <div class="award-box rv">
+        <h3>🏆 <span data-en>Band Awards — Each Division</span><span data-es>Premios de Banda — Cada División</span></h3>
+        <div class="award-rows">
+          <div class="award-row"><span class="medal">👑</span><span><b><span data-en>Division 1 Champion</span><span data-es>Campeón División 1</span></b> — <span data-en>the title of the night</span><span data-es>el título de la noche</span></span></div>
+          <div class="award-row"><span class="medal">🥇</span><span><span data-en>1st Place — Division 2</span><span data-es>1.er Lugar — División 2</span></span></div>
+          <div class="award-row"><span class="medal">🥈</span><span><span data-en>2nd Place — both divisions</span><span data-es>2.º Lugar — ambas divisiones</span></span></div>
+          <div class="award-row"><span class="medal">🥉</span><span><span data-en>3rd Place — both divisions</span><span data-es>3.er Lugar — ambas divisiones</span></span></div>
+          <div class="award-row"><span class="medal">🗳️</span><span><span data-en><b>Crowd's Favorite Award</b> — voted by the audience, in each division</span><span data-es><b>Premio Favorito del Público</b> — votado por la audiencia, en cada división</span></span></div>
+          <div class="award-row"><span class="medal">⭐</span><span><span data-en>Category recognitions: Musicality · Stage Presence · Creativity · Crowd Impact</span><span data-es>Reconocimientos: Musicalidad · Presencia Escénica · Creatividad · Impacto en el Público</span></span></div>
+        </div>
+      </div>
+      <div class="award-box rv">
+        <h3>🎖️ <span data-en>Individual Musician Awards</span><span data-es>Premios Individuales</span></h3>
+        <p style="color:var(--muted);font-size:14.5px;margin-bottom:18px"><span data-en>1st, 2nd &amp; 3rd place in each category, in each division:</span><span data-es>1.º, 2.º y 3.er lugar en cada categoría, en cada división:</span></p>
+        <div class="inst-grid">
+          <div class="inst"><div class="ic">🎹</div><span data-en>Piano</span><span data-es>Piano</span></div>
+          <div class="inst"><div class="ic">🥁</div><span data-en>Drums</span><span data-es>Batería</span></div>
+          <div class="inst"><div class="ic">🎸</div><span data-en>Guitar</span><span data-es>Guitarra</span></div>
+          <div class="inst"><div class="ic">🎸</div><span data-en>Bass</span><span data-es>Bajo</span></div>
+          <div class="inst"><div class="ic">🎤</div><span data-en>Vocals</span><span data-es>Voz</span></div>
+          <div class="inst"><div class="ic">🎻</div><span data-en>Special Instrument</span><span data-es>Instrumento Especial</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="everyone rv">
+      <div>
+        <h4><span data-en>Every Student Leaves Recognized</span><span data-es>Cada Estudiante Sale Reconocido</span></h4>
+        <p><span data-en>No band is eliminated, and every participating student receives official event recognition.</span><span data-es>Ninguna banda es eliminada, y cada estudiante participante recibe reconocimiento oficial del evento.</span></p>
+      </div>
+      <div class="items">
+        <span class="chip"><span data-en>Official Certificate</span><span data-es>Certificado Oficial</span></span>
+        <span class="chip"><span data-en>Event Wristband</span><span data-es>Pulsera del Evento</span></span>
+        <span class="chip"><span data-en>Official Lanyard</span><span data-es>Lanyard Oficial</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MASTERCLASSES ==================== -->
+<section id="learn">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>The Educational Side</span><span data-es>El Lado Educativo</span></div>
+      <h2 class="sec-title"><span data-en>Compete. Then Level Up.</span><span data-es>Compite. Luego Sube de Nivel.</span></h2>
+      <p class="sec-lead"><span data-en>Four masterclasses are built into the event day — included for every registered student and Full Event Access guest.</span><span data-es>Cuatro masterclasses son parte del día del evento — incluidas para cada estudiante registrado e invitados con Acceso Completo.</span></p>
+    </div>
+    <div class="mc-grid">
+      <div class="mc rv">
+        <span class="tag">Masterclass 1</span>
+        <h3><span data-en>How to Own the Stage as a Band</span><span data-es>Cómo Adueñarte del Escenario como Banda</span></h3>
+        <p><span data-en>The performance skills that separate good bands from unforgettable ones.</span><span data-es>Las habilidades escénicas que separan a las bandas buenas de las inolvidables.</span></p>
+        <ul>
+          <li><span data-en>Entering with confidence</span><span data-es>Entrar con confianza</span></li>
+          <li><span data-en>Talking to the audience</span><span data-es>Hablar con el público</span></li>
+          <li><span data-en>Creating energy as a group</span><span data-es>Crear energía en grupo</span></li>
+          <li><span data-en>Recovering from mistakes</span><span data-es>Recuperarse de errores</span></li>
+          <li><span data-en>Ending songs with impact</span><span data-es>Terminar canciones con impacto</span></li>
+          <li><span data-en>Creating memorable moments</span><span data-es>Crear momentos memorables</span></li>
+        </ul>
+      </div>
+      <div class="mc rv">
+        <span class="tag">Masterclass 2</span>
+        <h3><span data-en>Instrument &amp; Band Skills</span><span data-es>Habilidades de Instrumento y Banda</span></h3>
+        <p><span data-en>Hands-on stations for every member of the band.</span><span data-es>Estaciones prácticas para cada integrante de la banda.</span></p>
+        <ul>
+          <li><span data-en>Guitar: riffs, tone &amp; solos</span><span data-es>Guitarra: riffs, tono y solos</span></li>
+          <li><span data-en>Keys: sounds &amp; space in a band</span><span data-es>Teclado: sonidos y espacio en banda</span></li>
+          <li><span data-en>Rhythm section: locking in</span><span data-es>Sección rítmica: acoplarse</span></li>
+          <li><span data-en>Songwriting: hooks &amp; riffs</span><span data-es>Composición: hooks y riffs</span></li>
+          <li><span data-en>Live communication on stage</span><span data-es>Comunicación en vivo</span></li>
+          <li><span data-en>Controlling stage volume</span><span data-es>Controlar el volumen en escena</span></li>
+        </ul>
+      </div>
+      <div class="mc rv">
+        <span class="tag">Masterclass 3</span>
+        <h3><span data-en>How to Earn a Living as a Musician</span><span data-es>Cómo Vivir de la Música</span></h3>
+        <p><span data-en>Real talk from a working industry professional: how musicians actually get paid to do what they love.</span><span data-es>Charla real de un profesional de la industria: cómo los músicos realmente cobran por hacer lo que aman.</span></p>
+        <ul>
+          <li><span data-en>Gigs &amp; live performance income</span><span data-es>Ingresos por shows en vivo</span></li>
+          <li><span data-en>Teaching &amp; session work</span><span data-es>Enseñanza y trabajo de sesión</span></li>
+          <li><span data-en>Streaming &amp; royalties</span><span data-es>Streaming y regalías</span></li>
+          <li><span data-en>Building a fanbase</span><span data-es>Construir una fanaticada</span></li>
+          <li><span data-en>Branding yourself as an artist</span><span data-es>Tu marca como artista</span></li>
+          <li><span data-en>Turning music into a career</span><span data-es>Convertir la música en carrera</span></li>
+        </ul>
+      </div>
+      <div class="mc rv">
+        <span class="tag">Masterclass 4</span>
+        <h3><span data-en>How to Use AI to Leverage Music Ideas</span><span data-es>Cómo Usar la IA para Potenciar Ideas Musicales</span></h3>
+        <p><span data-en>A fast overview of today's AI technology for musicians — and how to turn a song idea into a finished track.</span><span data-es>Un vistazo rápido a la tecnología de IA actual para músicos — y cómo convertir una idea en una canción terminada.</span></p>
+        <ul>
+          <li><span data-en>Song structure: verse, chorus, bridge, hook</span><span data-es>Estructura: verso, coro, puente, hook</span></li>
+          <li><span data-en>Creating songs with tools like Suno &amp; ChatGPT</span><span data-es>Crear canciones con herramientas como Suno y ChatGPT</span></li>
+          <li><span data-en>Lyric &amp; concept brainstorming</span><span data-es>Lluvia de ideas de letras y conceptos</span></li>
+          <li><span data-en>Production basics: mixing &amp; mastering</span><span data-es>Producción básica: mezcla y masterización</span></li>
+          <li><span data-en>Stem separation &amp; practice tracks</span><span data-es>Separación de stems y pistas de práctica</span></li>
+          <li><span data-en>Creative &amp; responsible AI use</span><span data-es>Uso creativo y responsable de la IA</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="fine rv"><span data-en>* Masterclass lineup, topics, and presenters may still change before the event.</span><span data-es>* La programación, los temas y los presentadores de las masterclasses aún pueden cambiar antes del evento.</span></p>
+  </div>
+</section>
+
+<!-- ==================== ROCKSTAR TREATMENT ==================== -->
+<section id="spotlight">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>The Value</span><span data-es>El Valor</span></div>
+      <h2 class="sec-title"><span data-en>Every Band Gets the Rockstar Treatment.</span><span data-es>Cada Banda Recibe Trato de Rockstar.</span></h2>
+      <p class="sec-lead"><span data-en>Participating bands don't just perform — they get promoted. Before, during, and after the event, we put your musicians in the spotlight across all our social media channels.</span><span data-es>Las bandas participantes no solo tocan — las promocionamos. Antes, durante y después del evento, ponemos a tus músicos bajo los reflectores en todos nuestros canales de redes sociales.</span></p>
+    </div>
+    <div class="judge-grid">
+      <div class="judge-card rv">
+        <div class="ic">🎬</div>
+        <h3><span data-en>Official Band Features</span><span data-es>Features Oficiales de Banda</span></h3>
+        <p><span data-en>Each band gets its own official feature — name, logo, and lineup presented like the pros.</span><span data-es>Cada banda tiene su feature oficial — nombre, logo y alineación presentados como los profesionales.</span></p>
+      </div>
+      <div class="judge-card rv">
+        <div class="ic">📸</div>
+        <h3><span data-en>Photos &amp; Videos</span><span data-es>Fotos y Videos</span></h3>
+        <p><span data-en>Professional event photography and video content your band can share, post, and keep forever.</span><span data-es>Fotografía profesional del evento y contenido en video que tu banda puede compartir, publicar y conservar para siempre.</span></p>
+      </div>
+      <div class="judge-card rv">
+        <div class="ic">🎤</div>
+        <h3><span data-en>Interviews</span><span data-es>Entrevistas</span></h3>
+        <p><span data-en>On-camera interviews and backstage moments — your musicians tell their story like touring artists.</span><span data-es>Entrevistas en cámara y momentos de backstage — tus músicos cuentan su historia como artistas de gira.</span></p>
+      </div>
+      <div class="judge-card rv">
+        <div class="ic">📱</div>
+        <h3><span data-en>Social Media Spotlight</span><span data-es>Reflectores en Redes</span></h3>
+        <p><span data-en>Features, reels, and recaps published across Instagram, Facebook, YouTube, and TikTok.</span><span data-es>Features, reels y recaps publicados en Instagram, Facebook, YouTube y TikTok.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GALLERY ==================== -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>The Proof</span><span data-es>La Prueba</span></div>
+      <h2 class="sec-title"><span data-en>We've Done This Before.</span><span data-es>Ya lo Hemos Hecho Antes.</span></h2>
+      <p class="sec-lead"><span data-en>In 2025, The World of Music School entered Central Florida's first inter-school Battle of the Bands — 250+ guests, 7 competing bands, 2 schools — and our band The Undefined took first place. In 2026, we're hosting. Bigger stage, more schools, a full championship.</span><span data-es>En 2025, The World of Music School entró al primer Battle of the Bands entre escuelas de Florida Central — más de 250 invitados, 7 bandas, 2 escuelas — y nuestra banda The Undefined ganó el primer lugar. En 2026, nosotros somos los anfitriones. Escenario más grande, más escuelas, un campeonato completo.</span></p>
+    </div>
+
+    <div class="stats rv" style="margin-top:44px">
+      <div class="stat"><b><i>250+</i></b><span data-en>Guests in 2025</span><span data-es>Invitados en 2025</span></div>
+      <div class="stat"><b><i>7</i></b><span data-en>Bands Competed</span><span data-es>Bandas Compitieron</span></div>
+      <div class="stat"><b>🏆</b><span data-en>Champion: The Undefined</span><span data-es>Campeón: The Undefined</span></div>
+      <div class="stat"><b><i>2026</i></b><span data-en>We're Hosting</span><span data-es>Somos Anfitriones</span></div>
+    </div>
+
+    <div class="evolution rv">
+      <div class="evo">
+        <div class="yr">2025</div>
+        <h4><span data-en>We Entered. We Won.</span><span data-es>Entramos. Ganamos.</span></h4>
+        <p><span data-en>2 music schools · 7 bands · 250+ guests. Our band The Undefined took first place at Central Florida's first inter-school Battle of the Bands.</span><span data-es>2 escuelas de música · 7 bandas · más de 250 invitados. Nuestra banda The Undefined ganó el primer lugar en el primer Battle of the Bands entre escuelas de Florida Central.</span></p>
+      </div>
+      <div class="evo-arrow"><span>➜</span></div>
+      <div class="evo next">
+        <div class="yr">2026</div>
+        <h4><span data-en>We're Going Bigger.</span><span data-es>Vamos por Más.</span></h4>
+        <p><span data-en>4 music schools · 12 bands · 2 divisions · a full-day championship with masterclasses, individual awards, and the Crowd's Favorite vote.</span><span data-es>4 escuelas de música · 12 bandas · 2 divisiones · un campeonato de día completo con masterclasses, premios individuales y el voto Favorito del Público.</span></p>
+      </div>
+    </div>
+    <div class="gal rv">
+      <a href="assets/img/botb-stage.jpg" class="wide"><img src="assets/img/botb-stage.jpg" alt="Full stage during Battle of the Bands" loading="lazy"><span class="cap"><span data-en>Battle of the Bands — Full Stage</span><span data-es>Battle of the Bands — Escenario Completo</span></span></a>
+      <a href="assets/img/botb-guitar-solo.jpg" class="tall"><img src="assets/img/botb-guitar-solo.jpg" alt="Guitar solo" loading="lazy"><span class="cap"><span data-en>The Guitar Solo</span><span data-es>El Solo de Guitarra</span></span></a>
+      <a href="assets/img/botb-singer.jpg" class="tall"><img src="assets/img/botb-singer.jpg" alt="Lead vocalist on stage" loading="lazy"><span class="cap"><span data-en>Front &amp; Center</span><span data-es>Al Frente y al Centro</span></span></a>
+      <a href="assets/img/web-bot-aramis.jpg" class="tall"><img src="assets/img/web-bot-aramis.jpg" alt="Aramis opening the show with the National Anthem" loading="lazy"><span class="cap"><span data-en>The National Anthem, on Guitar</span><span data-es>El Himno Nacional, en Guitarra</span></span></a>
+      <a href="assets/img/botb-lineup.jpg" class="wide"><img src="assets/img/botb-lineup.jpg" alt="Bands lined up on stage" loading="lazy"><span class="cap"><span data-en>The Lineup</span><span data-es>La Alineación</span></span></a>
+      <a href="assets/img/botb-bass.jpg" class="tall"><img src="assets/img/botb-bass.jpg" alt="Bass player" loading="lazy"><span class="cap"><span data-en>Holding Down the Low End</span><span data-es>Sosteniendo el Bajo</span></span></a>
+      <a href="assets/img/botb-wicked.jpg"><img src="assets/img/botb-wicked.jpg" alt="Vocal trio performing" loading="lazy"><span class="cap"><span data-en>The Wicked, Live</span><span data-es>The Wicked, en Vivo</span></span></a>
+      <a href="assets/img/botb-curtain.jpg"><img src="assets/img/botb-curtain.jpg" alt="Bands on stage before awards" loading="lazy"><span class="cap"><span data-en>Before the Awards</span><span data-es>Antes de los Premios</span></span></a>
+      <a href="assets/img/web-bot-winners.jpg" class="wide"><img src="assets/img/web-bot-winners.jpg" alt="Champions celebrating on stage" loading="lazy"><span class="cap"><span data-en>The Champions' Moment</span><span data-es>El Momento de los Campeones</span></span></a>
+      <a href="assets/img/botb-anthem.jpg"><img src="assets/img/botb-anthem.jpg" alt="National anthem performance" loading="lazy"><span class="cap"><span data-en>Opening the Show</span><span data-es>Abriendo el Show</span></span></a>
+      <a href="assets/img/extra-venue.jpg"><img src="assets/img/extra-venue.jpg" alt="Young fans at the venue" loading="lazy"><span class="cap"><span data-en>The Next Generation</span><span data-es>La Nueva Generación</span></span></a>
+      <a href="assets/img/web-bot-announcement.jpg"><img src="assets/img/web-bot-announcement.jpg" alt="Medal ceremony moment" loading="lazy"><span class="cap"><span data-en>Medals On. Hearts Racing.</span><span data-es>Medallas Puestas. Corazones a Mil.</span></span></a>
+      <a href="assets/img/web-bot-gallery-drummer.jpg"><img src="assets/img/web-bot-gallery-drummer.jpg" alt="Young drummer locked in" loading="lazy"><span class="cap"><span data-en>Locked In</span><span data-es>Concentrado</span></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== VIDEOS ==================== -->
+<section id="videos">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>Press Play</span><span data-es>Dale Play</span></div>
+      <h2 class="sec-title"><span data-en>Hear It. Feel It. Watch It.</span><span data-es>Escúchalo. Siéntelo. Míralo.</span></h2>
+      <p class="sec-lead"><span data-en>The official trailer, the backstage energy, and the full "Blast from the Past" recap from the 2025 Battle of the Bands.</span><span data-es>El trailer oficial, la energía del backstage y el recap completo de "Blast from the Past" del Battle of the Bands 2025.</span></p>
+    </div>
+    <div class="video-grid rv">
+      <button class="vid wide" data-yt="O45VMPsGD0E" aria-label="Play trailer">
+        <img src="assets/img/yt-trailer.jpg" alt="Battle of the Bands 2025 official trailer" loading="lazy">
+        <span class="play"></span>
+        <span class="vid-cap"><b><span data-en>Official Trailer — Battle of the Bands 2025</span><span data-es>Trailer Oficial — Battle of the Bands 2025</span></b><span data-en>Two schools. One stage. This is how it started.</span><span data-es>Dos escuelas. Un escenario. Así empezó todo.</span></span>
+      </button>
+      <div class="video-row">
+        <button class="vid tall" data-yt="ZegAZhmMC6Y" aria-label="Play backstage short">
+          <img src="assets/img/yt-short.jpg" alt="Backstage before the battle" loading="lazy">
+          <span class="play"></span>
+          <span class="vid-cap"><b><span data-en>Backstage Voices</span><span data-es>Voces del Backstage</span></b><span data-en>The energy before the battle</span><span data-es>La energía antes de la batalla</span></span>
+        </button>
+        <button class="vid wide" data-yt="WEoZZPydHFg" aria-label="Play 80s recap">
+          <img src="assets/img/yt-recap.jpg" alt="Blast from the Past 80s recap" loading="lazy">
+          <span class="play"></span>
+          <span class="vid-cap"><b><span data-en>"Blast from the Past" — 80s Recap</span><span data-es>"Blast from the Past" — Recap Ochentero</span></b><span data-en>Last edition's theme, relived in full</span><span data-es>El tema de la edición pasada, revivido por completo</span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" onclick="closeLb(event)">
+  <button class="x" aria-label="Close">×</button>
+  <img id="lb-img" alt="">
+</div>
+
+<!-- ==================== PRICING ==================== -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>Pricing</span><span data-es>Precios</span></div>
+      <h2 class="sec-title"><span data-en>Simple, Honest Pricing.</span><span data-es>Precios Simples y Claros.</span></h2>
+      <p class="sec-lead"><span data-en>One flat fee registers your whole band for the entire day — both performances, all four masterclasses, and full award eligibility.</span><span data-es>Una sola tarifa registra a toda tu banda para el día completo — ambas presentaciones, las cuatro masterclasses y elegibilidad total para premios.</span></p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card main rv">
+        <span class="badge"><span data-en>For Bands</span><span data-es>Para Bandas</span></span>
+        <h3><span data-en>Band Registration</span><span data-es>Registro de Banda</span></h3>
+        <div class="who"><span data-en>Per band · covers every member</span><span data-es>Por banda · cubre a todos los integrantes</span></div>
+        <div class="price"><b>$199</b><span data-en>/ band</span><span data-es>/ banda</span></div>
+        <p class="price-note"><span data-en>Each school may register up to 3 bands.</span><span data-es>Cada escuela puede registrar hasta 3 bandas.</span></p>
+        <ul>
+          <li><span data-en>Qualifying round performance</span><span data-es>Presentación clasificatoria</span></li>
+          <li><span data-en>Division competition set</span><span data-es>Set de competencia de división</span></li>
+          <li><span data-en>Official judging &amp; written feedback</span><span data-es>Evaluación oficial y feedback</span></li>
+          <li><span data-en>All four masterclasses included</span><span data-es>Las cuatro masterclasses incluidas</span></li>
+          <li><span data-en>Band &amp; individual award eligibility</span><span data-es>Elegibilidad a premios de banda e individuales</span></li>
+          <li><span data-en>Certificate, wristband &amp; lanyard</span><span data-es>Certificado, pulsera y lanyard</span></li>
+          <li><span data-en>Event photography opportunities</span><span data-es>Oportunidades de fotografía</span></li>
+          <li><span data-en>Final group photo</span><span data-es>Foto grupal final</span></li>
+        </ul>
+        <a href="#register" class="btn btn-red"><span data-en>Register a Band</span><span data-es>Registra una Banda</span></a>
+      </div>
+      <div class="price-card side rv">
+        <h3><span data-en>Full Event Access Pass</span><span data-es>Pase de Acceso Completo</span></h3>
+        <div class="who"><span data-en>For family, friends &amp; fans</span><span data-es>Para familia, amigos y fans</span></div>
+        <span class="soon"><span data-en>Announced Soon</span><span data-es>Se Anuncia Pronto</span></span>
+        <p class="price-note"><span data-en>Priced separately from band registration. Join the interest list and be first to know.</span><span data-es>Precio separado del registro de banda. Únete a la lista y sé el primero en saberlo.</span></p>
+        <ul>
+          <li><span data-en>All 24 competitive performances</span><span data-es>Las 24 presentaciones competitivas</span></li>
+          <li><span data-en>Crowd's Favorite voting power</span><span data-es>Poder de voto del Favorito del Público</span></li>
+          <li><span data-en>All four masterclasses</span><span data-es>Las cuatro masterclasses</span></li>
+          <li><span data-en>Both awards ceremonies</span><span data-es>Ambas ceremonias de premios</span></li>
+          <li><span data-en>Lobby experience: food, merch, raffles, photos</span><span data-es>Lobby: comida, merch, rifas, fotos</span></li>
+        </ul>
+        <a href="#register" class="btn btn-blue"><span data-en>Join the Interest List</span><span data-es>Únete a la Lista</span></a>
+      </div>
+    </div>
+    <p class="fine"><span data-en>Band registration is complete once all required information and payment are received by the deadline. Registration fees are separate from audience admission and Full Event Access Passes.</span><span data-es>El registro de banda se completa una vez recibida toda la información requerida y el pago antes de la fecha límite. Las tarifas de registro son independientes de la admisión del público y los Pases de Acceso Completo.</span></p>
+  </div>
+</section>
+
+<!-- ==================== FOR SCHOOLS ==================== -->
+<section id="schools">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>For Music Schools</span><span data-es>Para Escuelas de Música</span></div>
+      <h2 class="sec-title"><span data-en>Put Your School on the Stage.</span><span data-es>Pon tu Escuela en el Escenario.</span></h2>
+    </div>
+    <div class="school-grid">
+      <div class="rv">
+        <p class="sec-lead"><span data-en>World of Bands Florida was created by The World of Music School — but it's bigger than one school. It's a stage for the whole community, and we're inviting three schools to compete alongside ours.</span><span data-es>World of Bands Florida fue creado por The World of Music School — pero es más grande que una escuela. Es un escenario para toda la comunidad, y estamos invitando a tres escuelas a competir junto a la nuestra.</span></p>
+        <ul class="check-list">
+          <li><span class="ck">✓</span><div><b><span data-en>Showcase your program</span><span data-es>Muestra tu programa</span></b><p><span data-en>Your bands, your coaches, and your school name in front of hundreds of local families.</span><span data-es>Tus bandas, tus coaches y el nombre de tu escuela frente a cientos de familias locales.</span></p></div></li>
+          <li><span class="ck">✓</span><div><b><span data-en>Give your students a real goal</span><span data-es>Dale a tus estudiantes una meta real</span></b><p><span data-en>A professional stage and a championship to train for transforms a semester of lessons.</span><span data-es>Un escenario profesional y un campeonato por el cual entrenar transforma un semestre de clases.</span></p></div></li>
+          <li><span class="ck">✓</span><div><b><span data-en>Zero production burden</span><span data-es>Cero carga de producción</span></b><p><span data-en>We handle the venue, stage, backline, sound, judges, awards, and event staff. You bring the bands.</span><span data-es>Nosotros ponemos el venue, escenario, backline, sonido, jueces, premios y staff. Tú traes las bandas.</span></p></div></li>
+          <li><span class="ck">✓</span><div><b><span data-en>A school information table</span><span data-es>Una mesa de información</span></b><p><span data-en>Every participating school gets lobby presence to meet prospective families.</span><span data-es>Cada escuela participante tiene presencia en el lobby para conocer a familias interesadas.</span></p></div></li>
+        </ul>
+        <div class="slots">
+          <div class="n">4</div>
+          <p><b><span data-en>Only four school slots per edition — three bands each.</span><span data-es>Solo cuatro cupos de escuela por edición — tres bandas cada una.</span></b> <span data-en>When they're gone, they're gone.</span><span data-es>Cuando se acaban, se acaban.</span></p>
+        </div>
+        <p class="fine" style="margin-top:14px"><span data-en>The field is always 12 bands total, with a maximum of 3 bands per school. If participating schools register fewer than three bands each, an additional school may be invited to complete the 12-band field.</span><span data-es>El total siempre es de 12 bandas, con un máximo de 3 bandas por escuela. Si las escuelas participantes registran menos de tres bandas cada una, podría invitarse a una escuela adicional para completar las 12 bandas.</span></p>
+      </div>
+      <div class="rv"><img src="assets/img/botb-lineup.jpg" alt="Student bands on stage at Battle of the Bands"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== REGISTER FORM ==================== -->
+<section id="register">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>Get In</span><span data-es>Entra</span></div>
+      <h2 class="sec-title"><span data-en>Claim Your Spot.</span><span data-es>Reclama tu Lugar.</span></h2>
+    </div>
+    <div class="form-wrap">
+      <div class="form-side rv">
+        <p><span data-en>Whether you run a music school, coach a band, or play in one — tell us who you are and we'll reach out with next steps, dates, and the official registration packet.</span><span data-es>Ya sea que dirijas una escuela de música, seas coach de una banda o toques en una — cuéntanos quién eres y te contactaremos con los próximos pasos, fechas y el paquete oficial de registro.</span></p>
+        <div class="contact-line"><span class="ic">✉</span><a href="mailto:info@theworldofmusicschool.com">info@theworldofmusicschool.com</a></div>
+        <div class="contact-line"><span class="ic">☎</span><a href="tel:+14075426129">(407) 542-6129</a></div>
+        <div class="contact-line"><span class="ic">🌐</span><a href="https://www.theworldofmusicschool.com" target="_blank" rel="noopener">theworldofmusicschool.com</a></div>
+        <div class="contact-line"><span class="ic">📍</span><span data-en>Central Florida — Kissimmee &amp; surrounding areas</span><span data-es>Florida Central — Kissimmee y alrededores</span></div>
+        <p style="margin-top:26px;font-size:14px"><span data-en>Schools: response within 48 hours, including division details, requirements, and the participation agreement.</span><span data-es>Escuelas: respuesta en 48 horas, incluyendo detalles de divisiones, requisitos y el acuerdo de participación.</span></p>
+      </div>
+      <div class="rv">
+        <form id="reg-form" novalidate>
+          <div class="f-row">
+            <div class="f-field">
+              <label for="f-name"><span data-en>Your Name *</span><span data-es>Tu Nombre *</span></label>
+              <input id="f-name" name="name" type="text" required autocomplete="name">
+            </div>
+            <div class="f-field">
+              <label for="f-role"><span data-en>I Am A… *</span><span data-es>Yo Soy… *</span></label>
+              <select id="f-role" name="role" required>
+                <option value=""></option>
+                <option value="school"  data-en-label="Music School Owner / Director" data-es-label="Dueño / Director de Escuela de Música">Music School Owner / Director</option>
+                <option value="coach"   data-en-label="Band Coach / Instructor" data-es-label="Coach / Instructor de Banda">Band Coach / Instructor</option>
+                <option value="parent"  data-en-label="Parent / Guardian" data-es-label="Padre / Madre / Tutor">Parent / Guardian</option>
+                <option value="student" data-en-label="Student Musician" data-es-label="Estudiante Músico">Student Musician</option>
+                <option value="fan"     data-en-label="Fan / Audience — interest list" data-es-label="Fan / Público — lista de interés">Fan / Audience — interest list</option>
+                <option value="sponsor" data-en-label="Sponsor / Vendor" data-es-label="Patrocinador / Vendedor">Sponsor / Vendor</option>
+              </select>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-field">
+              <label for="f-org"><span data-en>School / Band Name</span><span data-es>Nombre de Escuela / Banda</span></label>
+              <input id="f-org" name="org" type="text">
+            </div>
+            <div class="f-field">
+              <label for="f-city"><span data-en>City *</span><span data-es>Ciudad *</span></label>
+              <input id="f-city" name="city" type="text" required>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-field">
+              <label for="f-email"><span data-en>Email *</span><span data-es>Correo *</span></label>
+              <input id="f-email" name="email" type="email" required autocomplete="email">
+            </div>
+            <div class="f-field">
+              <label for="f-phone"><span data-en>Phone / WhatsApp</span><span data-es>Teléfono / WhatsApp</span></label>
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+          <div class="f-field">
+            <label for="f-bands"><span data-en>How Many Bands Would You Bring?</span><span data-es>¿Cuántas Bandas Traerías?</span></label>
+            <select id="f-bands" name="bands">
+              <option value=""></option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="0" data-en-label="Not sure yet" data-es-label="Aún no sé">Not sure yet</option>
+            </select>
+          </div>
+          <div class="f-field">
+            <label for="f-msg"><span data-en>Tell Us About Your Bands / Questions</span><span data-es>Cuéntanos de tus Bandas / Preguntas</span></label>
+            <textarea id="f-msg" name="msg" placeholder=""></textarea>
+          </div>
+          <label class="f-consent">
+            <input type="checkbox" id="f-consent" required>
+            <span data-en>I agree to be contacted by the World of Bands Florida team about this event.</span><span data-es>Acepto ser contactado por el equipo de World of Bands Florida sobre este evento.</span>
+          </label>
+          <div class="f-error" id="f-error"><span data-en>Please complete the required fields (name, role, city, email, and consent).</span><span data-es>Por favor completa los campos requeridos (nombre, rol, ciudad, correo y consentimiento).</span></div>
+          <button type="submit" class="btn btn-red" style="width:100%"><span data-en>Send My Info →</span><span data-es>Enviar Mi Info →</span></button>
+        </form>
+        <div class="form-ok" id="form-ok">
+          <div class="big">🤘</div>
+          <h3><span data-en>You're On The List!</span><span data-es>¡Estás en la Lista!</span></h3>
+          <p><span data-en>Your interest form is ready to send. If your email app didn't open automatically, write to us directly and we'll take it from there.</span><span data-es>Tu formulario está listo para enviar. Si tu app de correo no se abrió automáticamente, escríbenos directamente y seguimos desde ahí.</span></p>
+          <a class="btn btn-blue" href="mailto:info@theworldofmusicschool.com">info@theworldofmusicschool.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section id="faq">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker">FAQ</div>
+      <h2 class="sec-title"><span data-en>Questions? Answered.</span><span data-es>¿Preguntas? Respondidas.</span></h2>
+    </div>
+    <div class="faq-list rv">
+      <details class="faq">
+        <summary><span data-en>Who can compete in World of Bands Florida?</span><span data-es>¿Quién puede competir en World of Bands Florida?</span></summary>
+        <div class="a"><span data-en>Student bands representing a participating music school. Our goal is four schools per edition with up to three bands each. The field is always 12 bands total and never more than 3 per school — so if schools bring fewer than three bands, an additional school may be invited to complete the field.</span><span data-es>Bandas estudiantiles que representan a una escuela de música participante. Nuestra meta son cuatro escuelas por edición con hasta tres bandas cada una. El total siempre es de 12 bandas y nunca más de 3 por escuela — así que si las escuelas traen menos de tres bandas, podría invitarse a una escuela adicional para completar el grupo.</span></div>
+      </details>
+      <details class="faq">
+        <summary><span data-en>Can a band be eliminated during the event?</span><span data-es>¿Puede una banda ser eliminada durante el evento?</span></summary>
+        <div class="a"><span data-en>No. Every band performs in the qualifying round and then competes in either Division 1 or Division 2. Both divisions have full competitions, podiums, and awards ceremonies.</span><span data-es>No. Cada banda toca en la ronda clasificatoria y luego compite en la División 1 o la División 2. Ambas divisiones tienen competencias completas, podios y ceremonias de premiación.</span></div>
+      </details>
+      <details class="faq">
+        <summary><span data-en>What does the $199 registration fee cover?</span><span data-es>¿Qué cubre la tarifa de registro de $199?</span></summary>
+        <div class="a"><span data-en>It registers one complete band — every member — for the full day: both performances, official judging and feedback, all four masterclasses, all award eligibility, certificates, wristbands, lanyards, photography opportunities, the final group photo — plus the social media features, videos, and interviews every band receives.</span><span data-es>Registra a una banda completa — todos sus integrantes — para el día entero: ambas presentaciones, evaluación oficial y feedback, las cuatro masterclasses, elegibilidad a todos los premios, certificados, pulseras, lanyards, oportunidades de fotografía, la foto grupal final — más los features en redes, videos y entrevistas que recibe cada banda.</span></div>
+      </details>
+      <details class="faq">
+        <summary><span data-en>What can bands play? Covers? Originals?</span><span data-es>¿Qué pueden tocar las bandas? ¿Covers? ¿Originales?</span></summary>
+        <div class="a"><span data-en>Both. Qualifying sets (5 min) and division sets (10 min) can include full songs, shortened songs, medleys, creative arrangements, covers, originals, or any combination.</span><span data-es>Ambos. Los sets clasificatorios (5 min) y de división (10 min) pueden incluir canciones completas, versiones cortas, medleys, arreglos creativos, covers, originales o cualquier combinación.</span></div>
+      </details>
+      <details class="faq">
+        <summary><span data-en>How does the audience affect the results?</span><span data-es>¿Cómo afecta el público a los resultados?</span></summary>
+        <div class="a"><span data-en>Four ways. Judges score Crowd Impact as an official category. Then the audience votes directly three times: the qualifying-round Crowd's Favorite claims the sixth Division 1 spot, and each division awards its own Crowd's Favorite Award.</span><span data-es>De cuatro maneras. Los jueces puntúan el Impacto en el Público como categoría oficial. Además, el público vota directamente tres veces: la Favorita de la ronda clasificatoria gana el sexto lugar de la División 1, y cada división entrega su propio Premio Favorito del Público.</span></div>
+      </details>
+      <details class="faq">
+        <summary><span data-en>Who are the judges?</span><span data-es>¿Quiénes son los jueces?</span></summary>
+        <div class="a"><span data-en>An independent panel of music industry professionals — musicians, producers, and other unbiased experts. No judge will be a teacher at any participating school, and the full panel will be publicly presented before the event.</span><span data-es>Un panel independiente de profesionales de la industria musical — músicos, productores y otros expertos imparciales. Ningún juez será maestro de una escuela participante, y el panel completo será presentado públicamente antes del evento.</span></div>
+      </details>
+      <details class="faq">
+        <summary><span data-en>What equipment is provided on stage?</span><span data-es>¿Qué equipo se provee en el escenario?</span></summary>
+        <div class="a"><span data-en>Professional sound system, microphones, drum set, guitar and bass amplifiers, piano and keyboards. Bands play a brief line check when needed — no full soundcheck required.</span><span data-es>Sistema de sonido profesional, micrófonos, batería, amplificadores de guitarra y bajo, piano y teclados. Las bandas hacen un breve line check si es necesario — no se requiere soundcheck completo.</span></div>
+      </details>
+      <details class="faq">
+        <summary><span data-en>What does my school need to submit to register a band?</span><span data-es>¿Qué debe entregar mi escuela para registrar una banda?</span></summary>
+        <div class="a"><span data-en>Band name, student names and ages, instruments, coach information, song selections, backing tracks (if used), technical requirements, staging requests, emergency contacts, media releases, and the registration fee.</span><span data-es>Nombre de la banda, nombres y edades de los estudiantes, instrumentos, información del coach, selección de canciones, pistas (si se usan), requerimientos técnicos, solicitudes de escenario, contactos de emergencia, autorizaciones de medios y la tarifa de registro.</span></div>
+      </details>
+      <details class="faq">
+        <summary><span data-en>Do family and friends need a ticket?</span><span data-es>¿La familia y los amigos necesitan boleto?</span></summary>
+        <div class="a"><span data-en>Yes — audience members attend with a Full Event Access Pass, which includes all performances, all four masterclasses, both awards ceremonies, voting, and the lobby experience. Pricing will be announced soon; join the interest list above.</span><span data-es>Sí — el público asiste con un Pase de Acceso Completo, que incluye todas las presentaciones, las cuatro masterclasses, ambas ceremonias de premios, la votación y la experiencia del lobby. El precio se anunciará pronto; únete a la lista de interés arriba.</span></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FINAL CTA ==================== -->
+<section class="final" id="final">
+  <div class="final-bg"><img src="assets/img/botb-guitar-solo.jpg" alt=""></div>
+  <div class="wrap">
+    <h2><span data-en>One Stage.<br>One Dream.</span><span data-es>Un Escenario.<br>Un Sueño.</span></h2>
+    <p><span data-en>Four schools. Twelve bands. A day your students will never forget. Slots are limited — let's talk.</span><span data-es>Cuatro escuelas. Doce bandas. Un día que tus estudiantes nunca olvidarán. Los cupos son limitados — hablemos.</span></p>
+    <a href="#register" class="btn btn-red"><span data-en>Register Your School</span><span data-es>Inscribe tu Escuela</span></a>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <img src="assets/img/lockup.png" alt="World of Bands Florida — presented by The World of Music School">
+      <p><span data-en>World of Bands Florida is a full-day educational and competitive music experience presented by The World of Music School. Learn. Perform. Connect.</span><span data-es>World of Bands Florida es una experiencia musical educativa y competitiva de día completo presentada por The World of Music School. Aprende. Toca. Conecta.</span></p>
+    </div>
+    <div>
+      <h4><span data-en>Event</span><span data-es>Evento</span></h4>
+      <ul>
+        <li><a href="#format"><span data-en>Competition Format</span><span data-es>Formato de Competencia</span></a></li>
+        <li><a href="#day"><span data-en>Event Day Schedule</span><span data-es>Horario del Evento</span></a></li>
+        <li><a href="#awards"><span data-en>Awards</span><span data-es>Premios</span></a></li>
+        <li><a href="#pricing"><span data-en>Pricing</span><span data-es>Precios</span></a></li>
+        <li><a href="#register"><span data-en>Register</span><span data-es>Regístrate</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <h4><span data-en>The Organizers</span><span data-es>Los Organizadores</span></h4>
+      <ul>
+        <li><a href="https://www.theworldofmusicschool.com" target="_blank" rel="noopener">The World of Music School</a></li>
+        <li><a href="mailto:info@theworldofmusicschool.com">info@theworldofmusicschool.com</a></li>
+        <li><a href="tel:+14075426129">(407) 542-6129</a></li>
+        <li><a href="https://www.instagram.com/theworldofmusicschool" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/theworldofmusicschool" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://www.youtube.com/user/theworldofmusicschool" target="_blank" rel="noopener">YouTube</a></li>
+        <li><a href="https://www.tiktok.com/@theworldofmusicschool" target="_blank" rel="noopener">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 World of Bands Florida · <span data-en>Presented by The World of Music School</span><span data-es>Presentado por The World of Music School</span></span>
+    <span>12 Bands · 2 Divisions · 1 Stage</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
