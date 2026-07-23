@@ -584,7 +584,9 @@
         <p style="margin-top:26px;font-size:14px"><span data-en>Schools: response within 48 hours, including division details, requirements, and the participation agreement.</span><span data-es>Escuelas: respuesta en 48 horas, incluyendo detalles de divisiones, requisitos y el acuerdo de participación.</span></p>
       </div>
       <div class="rv">
-        <form id="reg-form" novalidate>
+        <form id="reg-form" name="wob-interest" method="POST" data-netlify="true" novalidate>
+          <input type="hidden" name="form-name" value="wob-interest">
+          <input type="hidden" name="language" id="f-lang" value="English">
           <div class="f-row">
             <div class="f-field">
               <label for="f-name"><span data-en>Your Name *</span><span data-es>Tu Nombre *</span></label>
@@ -594,12 +596,12 @@
               <label for="f-role"><span data-en>I Am A… *</span><span data-es>Yo Soy… *</span></label>
               <select id="f-role" name="role" required>
                 <option value=""></option>
-                <option value="school"  data-en-label="Music School Owner / Director" data-es-label="Dueño / Director de Escuela de Música">Music School Owner / Director</option>
-                <option value="coach"   data-en-label="Band Coach / Instructor" data-es-label="Coach / Instructor de Banda">Band Coach / Instructor</option>
-                <option value="parent"  data-en-label="Parent / Guardian" data-es-label="Padre / Madre / Tutor">Parent / Guardian</option>
-                <option value="student" data-en-label="Student Musician" data-es-label="Estudiante Músico">Student Musician</option>
-                <option value="fan"     data-en-label="Fan / Audience — interest list" data-es-label="Fan / Público — lista de interés">Fan / Audience — interest list</option>
-                <option value="sponsor" data-en-label="Sponsor / Vendor" data-es-label="Patrocinador / Vendedor">Sponsor / Vendor</option>
+                <option value="Music School Owner / Director" data-en-label="Music School Owner / Director" data-es-label="Dueño / Director de Escuela de Música">Music School Owner / Director</option>
+                <option value="Band Coach / Instructor" data-en-label="Band Coach / Instructor" data-es-label="Coach / Instructor de Banda">Band Coach / Instructor</option>
+                <option value="Parent / Guardian" data-en-label="Parent / Guardian" data-es-label="Padre / Madre / Tutor">Parent / Guardian</option>
+                <option value="Student Musician" data-en-label="Student Musician" data-es-label="Estudiante Músico">Student Musician</option>
+                <option value="Fan / Audience" data-en-label="Fan / Audience — interest list" data-es-label="Fan / Público — lista de interés">Fan / Audience — interest list</option>
+                <option value="Sponsor / Vendor" data-en-label="Sponsor / Vendor" data-es-label="Patrocinador / Vendedor">Sponsor / Vendor</option>
               </select>
             </div>
           </div>
@@ -627,10 +629,10 @@
             <label for="f-bands"><span data-en>How Many Bands Would You Bring?</span><span data-es>¿Cuántas Bandas Traerías?</span></label>
             <select id="f-bands" name="bands">
               <option value=""></option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="0" data-en-label="Not sure yet" data-es-label="Aún no sé">Not sure yet</option>
+              <option value="1 band">1</option>
+              <option value="2 bands">2</option>
+              <option value="3 bands">3</option>
+              <option value="Not sure yet" data-en-label="Not sure yet" data-es-label="Aún no sé">Not sure yet</option>
             </select>
           </div>
           <div class="f-field">
@@ -642,12 +644,13 @@
             <span data-en>I agree to be contacted by the World of Bands Florida team about this event.</span><span data-es>Acepto ser contactado por el equipo de World of Bands Florida sobre este evento.</span>
           </label>
           <div class="f-error" id="f-error"><span data-en>Please complete the required fields (name, role, city, email, and consent).</span><span data-es>Por favor completa los campos requeridos (nombre, rol, ciudad, correo y consentimiento).</span></div>
+          <div class="f-error" id="f-neterror"><span data-en>Something went wrong sending your info. Please try again, or email us at info@theworldofmusicschool.com.</span><span data-es>Algo salió mal al enviar tu información. Inténtalo de nuevo o escríbenos a info@theworldofmusicschool.com.</span></div>
           <button type="submit" class="btn btn-red" style="width:100%"><span data-en>Send My Info →</span><span data-es>Enviar Mi Info →</span></button>
         </form>
         <div class="form-ok" id="form-ok">
           <div class="big">🤘</div>
           <h3><span data-en>You're On The List!</span><span data-es>¡Estás en la Lista!</span></h3>
-          <p><span data-en>Your interest form is ready to send. If your email app didn't open automatically, write to us directly and we'll take it from there.</span><span data-es>Tu formulario está listo para enviar. Si tu app de correo no se abrió automáticamente, escríbenos directamente y seguimos desde ahí.</span></p>
+          <p><span data-en>We got your info — our team will reach out within 48 hours with next steps. Can't wait? Write to us directly.</span><span data-es>Recibimos tu información — nuestro equipo te contactará en 48 horas con los próximos pasos. ¿No puedes esperar? Escríbenos directamente.</span></p>
           <a class="btn btn-blue" href="mailto:info@theworldofmusicschool.com">info@theworldofmusicschool.com</a>
         </div>
       </div>

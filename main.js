@@ -82,7 +82,9 @@ document.querySelectorAll('.vid[data-yt]').forEach(function(btn){
   }, { once: true });
 });
 
-/* ---------- Registration form ---------- */
+/* ---------- Registration form (Netlify Forms) ----------
+   Same pattern as the TWOM website: data-netlify form registered at
+   deploy time + fetch POST (urlencoded) + inline success state.   */
 document.getElementById('reg-form').addEventListener('submit', function(ev){
   ev.preventDefault();
   var f = ev.target;
@@ -92,7 +94,9 @@ document.getElementById('reg-form').addEventListener('submit', function(ev){
       bands = get('f-bands'), msg = get('f-msg'),
       consent = document.getElementById('f-consent').checked;
   var err = document.getElementById('f-error');
+  var netErr = document.getElementById('f-neterror');
   var okEmail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+  netErr.style.display = 'none';
   if(!name || !role || !city || !okEmail || !consent){
     err.style.display = 'block';
     return;
@@ -100,31 +104,33 @@ document.getElementById('reg-form').addEventListener('submit', function(ev){
   err.style.display = 'none';
 
   var isEs = document.documentElement.classList.contains('es');
-  var roleLabels = {
-    school:'Music School Owner / Director', coach:'Band Coach / Instructor',
-    parent:'Parent / Guardian', student:'Student Musician',
-    fan:'Fan / Audience', sponsor:'Sponsor / Vendor'
-  };
-  var subject = 'World of Bands Florida — Interest: ' + name + (org ? ' (' + org + ')' : '');
-  var lines = [
-    'New World of Bands Florida interest form', '',
-    'Name: ' + name,
-    'Role: ' + (roleLabels[role] || role),
-    'School / Band: ' + (org || '-'),
-    'City: ' + city,
-    'Email: ' + email,
-    'Phone / WhatsApp: ' + (phone || '-'),
-    'Bands they would bring: ' + (bands === '0' ? 'Not sure yet' : (bands || '-')), '',
-    'Message:', (msg || '-'), '',
-    'Language used on site: ' + (isEs ? 'Spanish' : 'English')
-  ];
-  var mailto = 'mailto:info@theworldofmusicschool.com'
-    + '?subject=' + encodeURIComponent(subject)
-    + '&body=' + encodeURIComponent(lines.join('\n'));
+  var body = new URLSearchParams({
+    'form-name': 'wob-interest',
+    'name': name,
+    'role': role,
+    'org': org,
+    'city': city,
+    'email': email,
+    'phone': phone,
+    'bands': bands,
+    'msg': msg,
+    'language': isEs ? 'Spanish' : 'English'
+  });
 
-  f.style.display = 'none';
-  document.getElementById('form-ok').classList.add('show');
-  window.location.href = mailto;
+  var btn = f.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: body.toString()
+  }).then(function(res){
+    if(!res.ok) throw new Error('Form submission failed: ' + res.status);
+    f.style.display = 'none';
+    document.getElementById('form-ok').classList.add('show');
+  }).catch(function(){
+    netErr.style.display = 'block';
+    btn.disabled = false;
+  });
 });
 
 /* ---------- Restore language ---------- */
