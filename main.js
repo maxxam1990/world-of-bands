@@ -133,6 +133,36 @@ document.getElementById('reg-form').addEventListener('submit', function(ev){
   });
 });
 
+/* ---------- Countdown to event day ----------
+   Sunday, October 4, 2026 — doors 9:45 AM, opening ceremony 10:00 AM ET. */
+(function(){
+  var target = new Date('2026-10-04T10:00:00-04:00').getTime();
+  var elD = document.getElementById('cd-d'), elH = document.getElementById('cd-h'),
+      elM = document.getElementById('cd-m'), elS = document.getElementById('cd-s'),
+      wrap = document.getElementById('countdown'), live = document.getElementById('cd-live');
+  if(!wrap) return;
+  var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
+  function tick(){
+    var diff = target - Date.now();
+    if(diff <= 0){
+      wrap.style.display = 'none';
+      live.style.display = 'block';
+      clearInterval(timer);
+      return;
+    }
+    var d = Math.floor(diff / 86400000),
+        h = Math.floor(diff % 86400000 / 3600000),
+        m = Math.floor(diff % 3600000 / 60000),
+        s = Math.floor(diff % 60000 / 1000);
+    elD.textContent = d;
+    elH.textContent = pad(h);
+    elM.textContent = pad(m);
+    elS.textContent = pad(s);
+  }
+  tick();
+  var timer = setInterval(tick, 1000);
+})();
+
 /* ---------- Restore language ---------- */
 try{
   var saved = localStorage.getItem('wob-lang');

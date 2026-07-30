@@ -78,6 +78,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:70px;padding:0 clamp
 .hero-tag{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3.4vw,38px);letter-spacing:.14em;color:#fff}
 .hero-tag em{font-style:normal;color:var(--red)}
 .hero-sub{max-width:640px;margin:22px auto 34px;color:#c3cbe8;font-size:clamp(16px,1.6vw,19px)}
+
+/* countdown */
+.countdown{display:flex;align-items:center;justify-content:center;gap:clamp(6px,1.5vw,14px);margin:30px auto 4px}
+.cd-box{background:rgba(10,16,34,.72);border:1px solid var(--border);border-radius:10px;padding:12px clamp(10px,2.2vw,22px);min-width:clamp(64px,9vw,96px);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 0 26px rgba(36,86,230,.14)}
+.cd-box b{display:block;font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,4.6vw,52px);line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.cd-box span{display:block;margin-top:4px;font-family:'Barlow Condensed',sans-serif;font-size:clamp(10.5px,1.2vw,13px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.cd-sep{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,36px);color:var(--red);padding-bottom:16px}
+.cd-live{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,3.4vw,38px);letter-spacing:.06em;color:#fff;margin:26px 0 4px;text-shadow:0 0 30px rgba(224,36,52,.6)}
 .hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 .hero-presented{margin-top:46px;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#aab4dd}
 .hero-presented b{color:#fff;font-weight:700}
