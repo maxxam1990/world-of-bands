@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Payment Received — World of Bands Florida</title>
+<meta name="description" content="Your band registration payment for World of Bands Florida 2026 has been received. Here's what happens next.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="assets/img/crest.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .thanks{min-height:100vh;padding:130px clamp(20px,5vw,60px) 90px;display:flex;align-items:center;
+          background:radial-gradient(1100px 620px at 50% -10%, rgba(36,86,230,.28), transparent 70%),var(--bg)}
+  .thanks-inner{max-width:820px;margin:0 auto;text-align:center}
+  .check{width:96px;height:96px;margin:0 auto 26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+         background:rgba(36,86,230,.14);border:2px solid var(--blue-bright);box-shadow:0 0 40px var(--blue-glow)}
+  .check svg{width:46px;height:46px;stroke:var(--blue-bright);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .thanks h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,7vw,78px);line-height:1;letter-spacing:.01em;margin:0 0 16px}
+  .thanks .lead{color:var(--muted);font-size:17.5px;max-width:620px;margin:0 auto 40px}
+  .steps{text-align:left;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:34px clamp(22px,4vw,40px);margin-bottom:34px}
+  .steps h2{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--blue-bright);margin-bottom:22px}
+  .steps ol{list-style:none;counter-reset:s}
+  .steps li{counter-increment:s;position:relative;padding-left:52px;margin-bottom:20px;font-size:16px}
+  .steps li:last-child{margin-bottom:0}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:-2px;width:34px;height:34px;border-radius:4px;
+                    display:flex;align-items:center;justify-content:center;background:rgba(36,86,230,.16);
+                    border:1px solid var(--border);font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff}
+  .steps li b{color:#fff}
+  .thanks .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+  .thanks .fine{margin:0 auto;text-align:center;max-width:640px}
+  .thanks .fine a{color:var(--blue-bright)}
+  .lang-float{position:fixed;top:18px;right:18px;z-index:1000}
+  @media(max-width:640px){.thanks{padding-top:100px}}
+</style>
+</head>
+<body>
+
+<div class="lang-sw lang-float">
+  <button id="btn-en" class="on" onclick="setLang('en')">EN</button>
+  <button id="btn-es" onclick="setLang('es')">ES</button>
+</div>
+
+<main class="thanks">
+  <div class="thanks-inner">
+    <div class="check" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+
+    <div class="sec-kicker" style="justify-content:center;margin-bottom:12px">
+      <span data-en>Payment Received</span><span data-es>Pago Recibido</span>
+    </div>
+
+    <h1><span data-en>Your Band Is In.</span><span data-es>Tu Banda Está Dentro.</span></h1>
+
+    <p class="lead">
+      <span data-en>We've received your registration payment for World of Bands Florida — Sunday, October 4, 2026. A Stripe receipt is on its way to the email you used at checkout.</span>
+      <span data-es>Hemos recibido el pago de tu registro para World of Bands Florida — domingo 4 de octubre de 2026. El recibo de Stripe va en camino al correo que usaste al pagar.</span>
+    </p>
+
+    <div class="steps">
+      <h2><span data-en>What Happens Next</span><span data-es>Qué Sigue Ahora</span></h2>
+      <ol>
+        <li>
+          <span data-en><b>Confirmation email — within 2 business days.</b> Our events team confirms your band's slot in the 12-band field and sends the official registration packet.</span>
+          <span data-es><b>Correo de confirmación — en 2 días hábiles.</b> Nuestro equipo confirma el lugar de tu banda dentro de las 12 y envía el paquete oficial de registro.</span>
+        </li>
+        <li>
+          <span data-en><b>Band details form.</b> Student names and ages, instruments, coach info, song selections, backing tracks, technical and staging requirements, emergency contacts, and media releases.</span>
+          <span data-es><b>Formulario de detalles de la banda.</b> Nombres y edades de los estudiantes, instrumentos, información del coach, canciones, pistas, requerimientos técnicos y de escenario, contactos de emergencia y autorizaciones de medios.</span>
+        </li>
+        <li>
+          <span data-en><b>Schedule &amp; soundcheck times.</b> Sent as the 12-band field is finalized, along with load-in details for event day.</span>
+          <span data-es><b>Horarios y pruebas de sonido.</b> Se envían al cerrar el cuadro de 12 bandas, junto con los detalles de entrada el día del evento.</span>
+        </li>
+        <li>
+          <span data-en><b>Rockstar treatment begins.</b> We'll reach out to schedule your band's photos, video, and interview features across our channels.</span>
+          <span data-es><b>Empieza el trato de rockstar.</b> Te contactaremos para agendar las fotos, el video y la entrevista de tu banda para nuestros canales.</span>
+        </li>
+      </ol>
+    </div>
+
+    <div class="cta-row">
+      <a href="/" class="btn btn-blue"><span data-en>Back to the Event Site</span><span data-es>Volver al Sitio</span></a>
+      <a href="mailto:info@worldofbands.com" class="btn btn-ghost"><span data-en>Email the Team</span><span data-es>Escríbenos</span></a>
+    </div>
+
+    <p class="fine">
+      <span data-en>Questions about your registration? Email <a href="mailto:info@worldofbands.com">info@worldofbands.com</a> or call <a href="tel:+14075426129">(407) 542-6129</a>. Registration is complete once all required band information is received by the deadline. Presented by The World of Music School.</span>
+      <span data-es>¿Preguntas sobre tu registro? Escribe a <a href="mailto:info@worldofbands.com">info@worldofbands.com</a> o llama al <a href="tel:+14075426129">(407) 542-6129</a>. El registro se completa una vez recibida toda la información requerida antes de la fecha límite. Presentado por The World of Music School.</span>
+    </p>
+  </div>
+</main>
+
+<script>
+/* Standalone language toggle — mirrors setLang() in main.js (this page
+   doesn't load main.js, which expects the homepage's form/nav elements). */
+function setLang(lang){
+  document.documentElement.classList.toggle('es', lang === 'es');
+  document.documentElement.lang = lang === 'es' ? 'es' : 'en';
+  ['btn-en','btn-es'].forEach(function(id){
+    var b = document.getElementById(id);
+    if(b) b.classList.toggle('on', id.endsWith(lang));
+  });
+  try{ localStorage.setItem('wob-lang', lang); }catch(e){}
+}
+try{
+  var saved = localStorage.getItem('wob-lang');
+  if(saved === 'es') setLang('es');
+}catch(e){}
+</script>
+</body>
+</html>
