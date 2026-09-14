@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Page — World of Bands Florida</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" href="/assets/img/crest.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/portal.css">
+</head>
+<body>
+
+<div class="p-topbar">
+  <a href="/"><img src="/assets/img/wordmark.png" alt="World of Bands Florida"></a>
+  <div class="right"><div class="lang-sw"><button id="btn-en" class="on" onclick="setLang('en')">EN</button><button id="btn-es" onclick="setLang('es')">ES</button></div></div>
+</div>
+
+<div class="p-gate" id="gate" style="display:none">
+  <h1><span data-en>Link Not Recognised</span><span data-es>Enlace No Reconocido</span></h1>
+  <p><span data-en>Use the exact school link from your registration confirmation email.</span><span data-es>Usa el enlace exacto de la escuela de tu correo de confirmación.</span></p>
+  <a href="mailto:info@worldofbands.com" class="btn btn-blue"><span data-en>Email the Team</span><span data-es>Escríbenos</span></a>
+</div>
+<div class="p-loading" id="loading"><span data-en>Loading…</span><span data-es>Cargando…</span></div>
+
+<main class="p-body" id="app" style="display:none">
+  <div class="p-head">
+    <div class="sec-kicker"><span data-en>School Page · For the Event Coordinator</span><span data-es>Página de la Escuela · Para el Coordinador</span></div>
+    <h1 id="schoolName">—</h1>
+    <p class="sub"><span class="pill pill-open" id="statusPill">—</span></p>
+    <p class="sub" style="margin-top:10px" id="introLine">
+      <span data-en>Each band has its own page — forward the links below to your band leaders, or fill them in yourself. You do the school info here and <b>sign once for every band</b>. Everything is due <b>Friday, September 18</b>.</span>
+      <span data-es>Cada banda tiene su propia página — reenvía los enlaces a los líderes de cada banda, o llénalos tú. Aquí pones la info de la escuela y <b>firmas una sola vez por todas las bandas</b>. Todo vence el <b>viernes 18 de septiembre</b>.</span>
+    </p>
+  </div>
+
+  <div class="p-note warn" id="lockNote" style="display:none">
+    <span data-en><b>Locked.</b> Your submission is final. Need a change? Email <a href="mailto:info@worldofbands.com" style="color:var(--gold)">info@worldofbands.com</a>.</span>
+    <span data-es><b>Bloqueado.</b> Tu envío es final. ¿Necesitas un cambio? Escribe a <a href="mailto:info@worldofbands.com" style="color:var(--gold)">info@worldofbands.com</a>.</span>
+  </div>
+
+  <!-- ============ bands ============ -->
+  <section class="step">
+    <h2><span data-en>Your bands</span><span data-es>Tus bandas</span></h2>
+    <p class="hint"><span data-en>Each link opens that band's page: logo, photo, bio, members, songs. Anyone with the link can edit that band — share it only with that band.</span><span data-es>Cada enlace abre la página de esa banda: logo, foto, bio, integrantes, canciones. Cualquiera con el enlace puede editar esa banda — compártelo solo con esa banda.</span></p>
+    <div class="bands" id="bands"></div>
+  </section>
+
+  <!-- ============ school logo ============ -->
+  <section class="step">
+    <h2><span data-en>School logo</span><span data-es>Logo de la escuela</span></h2>
+    <p class="hint"><span data-en><b>PNG with a transparent background</b> (or SVG). Goes on the stage screens, the program and your bands' social features.</span><span data-es><b>PNG con fondo transparente</b> (o SVG). Va en las pantallas, el programa y los features en redes de tus bandas.</span></p>
+    <div class="up-grid" data-upload-kinds="school_logo" style="max-width:260px"></div>
+  </section>
+
+  <!-- ============ people ============ -->
+  <section class="step">
+    <h2><span data-en>Who's who</span><span data-es>Quién es quién</span></h2>
+    <p class="hint"><span data-en>Each band names its own coach on its page. Here we need the two school-level people.</span><span data-es>Cada banda indica su propio coach en su página. Aquí necesitamos a las dos personas a nivel escuela.</span></p>
+
+    <h3 class="sub-h" style="margin-top:0"><span data-en>Event coordinator — you</span><span data-es>Coordinador del evento — tú</span></h3>
+    <p class="hint" style="margin-bottom:14px"><span data-en>Director of performance &amp; events, or whoever holds this link and signs below. Our day-to-day contact.</span><span data-es>Director de presentaciones y eventos, o quien tenga este enlace y firme abajo. Nuestro contacto del día a día.</span></p>
+    <div class="f-row">
+      <div class="f-field"><label><span data-en>Full name</span><span data-es>Nombre completo</span></label><input type="text" data-f="coordinator_name" maxlength="120"></div>
+      <div class="f-field"><label><span data-en>Phone</span><span data-es>Teléfono</span></label><input type="tel" data-f="coordinator_phone" maxlength="40"></div>
+    </div>
+    <div class="f-field"><label>Email</label><input type="email" data-f="coordinator_email" maxlength="200"></div>
+
+    <h3 class="sub-h"><span data-en>School contact</span><span data-es>Contacto de la escuela</span></h3>
+    <p class="hint" style="margin-bottom:14px"><span data-en>The school's official contact — owner, principal or front office. For invoices and anything formal.</span><span data-es>El contacto oficial de la escuela — dueño, director o recepción. Para facturas y lo formal.</span></p>
+    <div class="f-row">
+      <div class="f-field"><label><span data-en>Full name</span><span data-es>Nombre completo</span></label><input type="text" data-f="contact_name" maxlength="120"></div>
+      <div class="f-field"><label><span data-en>Role</span><span data-es>Cargo</span></label><input type="text" data-f="contact_role" maxlength="80" data-en-ph="Owner, principal, office manager…" data-es-ph="Dueño, director, administración…"></div>
+    </div>
+    <div class="f-row">
+      <div class="f-field"><label><span data-en>Phone</span><span data-es>Teléfono</span></label><input type="tel" data-f="contact_phone" maxlength="40"></div>
+      <div class="f-field"><label>Email</label><input type="email" data-f="contact_email" maxlength="200"></div>
+    </div>
+  </section>
+
+  <!-- ============ event day ============ -->
+  <section class="step">
+    <h2><span data-en>Event day</span><span data-es>Día del evento</span></h2>
+    <div class="f-row">
+      <div class="f-field"><label><span data-en>Emergency contact on event day</span><span data-es>Contacto de emergencia el día del evento</span></label><input type="text" data-f="emergency_name" maxlength="120" data-en-ph="Full name" data-es-ph="Nombre completo"></div>
+      <div class="f-field"><label><span data-en>Their phone</span><span data-es>Su teléfono</span></label><input type="tel" data-f="emergency_phone" maxlength="40" data-en-ph="(407) 555-0100" data-es-ph="(407) 555-0100"></div>
+    </div>
+    <div class="f-row">
+      <div class="f-field"><label><span data-en>Roughly how many family &amp; friends will come?</span><span data-es>¿Cuántos familiares y amigos vendrán aprox.?</span> <em class="opt"><span data-en>optional</span><span data-es>opcional</span></em></label><input type="text" data-f="expected_guests" maxlength="10" inputmode="numeric" data-en-ph="60" data-es-ph="60"></div>
+      <div class="f-field"><label><span data-en>Anything we should know (allergies, accessibility)</span><span data-es>Algo que debamos saber (alergias, accesibilidad)</span> <em class="opt"><span data-en>optional</span><span data-es>opcional</span></em></label><input type="text" data-f="accessibility_notes" maxlength="1000"></div>
+    </div>
+  </section>
+
+  <!-- ============ sign ============ -->
+  <section class="step">
+    <h2><span data-en>Sign and send</span><span data-es>Firmar y enviar</span></h2>
+    <p class="hint"><span data-en>One signature covers every band under your school.</span><span data-es>Una firma cubre todas las bandas de tu escuela.</span></p>
+    <div class="rel"><label><input type="checkbox" data-f="release_media"><span class="t"><span data-en><b>We can photograph, film and stream your bands' sets</b> and use it to promote World of Bands.</span><span data-es><b>Podemos fotografiar, filmar y transmitir los sets de sus bandas</b> y usarlo para promover World of Bands.</span></span></label></div>
+    <div class="rel"><label><input type="checkbox" data-f="release_logo"><span class="t"><span data-en><b>We can use your school logo and your bands' names and logos</b> on event materials. The logos are yours and don't copy anyone else's.</span><span data-es><b>Podemos usar el logo de la escuela y los nombres y logos de sus bandas</b> en materiales del evento. Los logos son suyos y no copian el de nadie más.</span></span></label></div>
+    <div class="rel"><label><input type="checkbox" data-f="release_minors"><span class="t"><span data-en><b>Your school has a signed parent release for every performer under 18.</b> We don't collect those here — you keep them.</span><span data-es><b>Su escuela tiene autorización firmada de los padres de cada integrante menor de 18.</b> No las recolectamos aquí — ustedes las conservan.</span></span></label></div>
+    <div class="rel"><label><input type="checkbox" data-f="release_clean"><span class="t"><span data-en><b>Your bands' songs contain no profanity or explicit content.</b> Family crowd, any language.</span><span data-es><b>Las canciones de sus bandas no tienen groserías ni contenido explícito.</b> Público familiar, en cualquier idioma.</span></span></label></div>
+    <div class="f-row" style="margin-top:22px">
+      <div class="f-field"><label><span data-en>Type your full name to sign</span><span data-es>Escribe tu nombre completo para firmar</span></label><input type="text" data-f="release_signed_by" maxlength="120"></div>
+      <div class="f-field"><label><span data-en>Your role</span><span data-es>Tu rol</span></label><input type="text" data-f="release_role" maxlength="80" data-en-ph="Director of performance, teacher…" data-es-ph="Director de presentaciones, maestro…"></div>
+    </div>
+    <div class="submit-box">
+      <div id="submitMissing" class="miss"></div>
+      <button class="btn btn-red" id="submitBtn" type="button" onclick="submitAll()"><span data-en>Send to the Organisers</span><span data-es>Enviar a los Organizadores</span></button>
+      <div class="done" id="doneBox" style="display:none"><b><span data-en>Sent — you're all set.</span><span data-es>Enviado — todo listo.</span></b><span data-en>You and your bands can still fix typos until we lock it.</span><span data-es>Tú y tus bandas aún pueden corregir detalles hasta que lo bloqueemos.</span></div>
+    </div>
+  </section>
+
+  <!-- ============ extras ============ -->
+  <section class="step" id="addonsCard">
+    <h2><span data-en>Optional extras</span><span data-es>Extras opcionales</span></h2>
+    <p class="hint"><span data-en>Not required, doesn't affect judging. Band shirts are ordered from each band's own page.</span><span data-es>No es obligatorio ni afecta la evaluación. Las camisetas se ordenan desde la página de cada banda.</span></p>
+    <div class="addons">
+      <div class="addon feature">
+        <h3><span data-en>Fundraiser raffle</span><span data-es>Rifa recaudatoria</span></h3>
+        <div class="cost"><span data-en>$10 a ticket · buy 5, get 1 free</span><span data-es>$10 el boleto · compra 5, lleva 1 gratis</span></div>
+        <p><span data-en>A grand-prize raffle open to everyone — members, families, guests. Schools that sell tickets keep a share. Details and ticket links coming soon.</span><span data-es>Una rifa con premio mayor abierta a todos — integrantes, familias, invitados. Las escuelas que vendan boletos se quedan con una parte. Detalles y enlaces pronto.</span></p>
+        <button class="btn btn-red" type="button" onclick="wantAddon('raffle', this)"><span data-en>We want to sell tickets</span><span data-es>Queremos vender boletos</span></button>
+      </div>
+      <div class="addon">
+        <h3><span data-en>Refer a sponsor</span><span data-es>Refiere un patrocinador</span></h3>
+        <div class="cost"><span data-en>Your school keeps 50%</span><span data-es>Su escuela se queda con 50%</span></div>
+        <p><span data-en>Know a business that'd love a shout-out to 250 families? Sponsors get a spot on worldofbands.com, our email list, the stage screens and a social post. Half of any sponsor you bring goes back to your program.</span><span data-es>¿Conocen un negocio que quiera llegar a 250 familias? Los patrocinadores salen en worldofbands.com, nuestra lista de correo, las pantallas y un post en redes. La mitad de lo que traigan vuelve a su programa.</span></p>
+        <div class="f-field"><input type="text" id="sponsorNote" maxlength="300" data-en-ph="Business name + contact" data-es-ph="Nombre del negocio + contacto"></div>
+        <button class="btn btn-ghost" type="button" onclick="wantAddon('sponsor', this, 'sponsorNote')"><span data-en>Send referral</span><span data-es>Enviar referido</span></button>
+      </div>
+    </div>
+  </section>
+
+  <p class="fine" style="text-align:center;margin:10px auto 0">
+    <span data-en>Questions? <a href="mailto:info@worldofbands.com" style="color:var(--blue-bright)">info@worldofbands.com</a> · <a href="tel:+14075426129" style="color:var(--blue-bright)">(407) 542-6129</a></span>
+    <span data-es>¿Preguntas? <a href="mailto:info@worldofbands.com" style="color:var(--blue-bright)">info@worldofbands.com</a> · <a href="tel:+14075426129" style="color:var(--blue-bright)">(407) 542-6129</a></span>
+  </p>
+</main>
+
+<div class="p-savebar" id="savebar" style="display:none">
+  <div class="state" id="saveState"><span class="dot"></span><span id="saveText"><span data-en>Saved</span><span data-es>Guardado</span></span></div>
+</div>
+
+<script src="/portal-common.js"></script>
+<script src="/school.js"></script>
+</body>
+</html>

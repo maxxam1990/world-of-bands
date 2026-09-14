@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roster — World of Bands Florida</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" href="/assets/img/crest.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/portal.css">
+</head>
+<body>
+<div class="p-topbar">
+  <a href="/"><img src="/assets/img/wordmark.png" alt="World of Bands Florida"></a>
+  <div class="right"><span class="pill pill-warn">Organisers</span></div>
+</div>
+
+<div class="p-gate" id="gate" style="display:none">
+  <h1>Organiser Access</h1>
+  <p>Paste your admin key — the <code>WOB_ADMIN_KEY</code> value from Netlify.</p>
+  <div class="f-field"><input type="password" id="keyIn" placeholder="Admin key"></div>
+  <button class="btn btn-blue" onclick="unlock()">Open Roster</button>
+  <p class="fine" style="margin-top:18px">Bookmark <code>/admin#yourkey</code> to skip this next time.</p>
+</div>
+<div class="p-loading" id="loading">Loading roster…</div>
+
+<main class="a-wrap" id="app" style="display:none">
+  <div class="p-head">
+    <div class="sec-kicker">Organisers</div>
+    <h1>Roster</h1>
+    <p class="sub">Schools and their bands · Sunday, October 4, 2026</p>
+  </div>
+
+  <div class="a-stats" id="stats"></div>
+  <div id="schools"></div>
+
+  <section class="p-card" style="margin-top:34px">
+    <h2>Add a School</h2>
+    <p class="hint">Do this as each school's registration payment clears. It creates the school page plus one band page per band paid for, and gives you every link to paste into one email to the school's event coordinator.</p>
+    <div class="f-row">
+      <div class="f-field"><label>School / program *</label><input type="text" id="nSchool"></div>
+      <div class="f-field"><label>Number of bands paid (1–3)</label><input type="number" id="nCount" min="1" max="3" value="1"></div>
+    </div>
+    <div class="f-row">
+      <div class="f-field"><label>Event coordinator name</label><input type="text" id="nCoach"></div>
+      <div class="f-field"><label>Coordinator email</label><input type="email" id="nEmail"></div>
+    </div>
+    <div class="f-row">
+      <div class="f-field"><label>Coordinator phone</label><input type="tel" id="nPhone"></div>
+      <div class="f-field"><label>Band names, comma-separated <em class="opt">optional — the school can name them</em></label><input type="text" id="nNames" placeholder="The Undefined, Static Bloom"></div>
+    </div>
+    <button class="btn btn-blue" onclick="createSchool()">Create School &amp; Generate Links</button>
+    <div id="createOut"></div>
+  </section>
+
+  <section class="p-card">
+    <h2>Extras Interest</h2>
+    <p class="hint">Raffle and sponsor requests from school pages, photo-pack requests from band pages. Shirt counts show on each band row.</p>
+    <div id="addonList"></div>
+  </section>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var API = '/api/admin', KEY = (location.hash || '').replace(/^#/, ''), data = null;
+
+  function api(action, payload) {
+    return fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key: KEY, action: action, payload: payload || {} }) })
+      .then(function (r) { return r.json().then(function (d) { if (!r.ok) { var e = new Error(d.error || 'error'); e.status = r.status; throw e; } return d; }); });
+  }
+  window.unlock = function () {
+    KEY = document.getElementById('keyIn').value.trim(); if (!KEY) return;
+    location.hash = KEY; document.getElementById('gate').style.display = 'none'; document.getElementById('loading').style.display = ''; load();
+  };
+  function gate() { document.getElementById('loading').style.display = 'none'; document.getElementById('app').style.display = 'none'; document.getElementById('gate').style.display = ''; }
+  function load() {
+    if (!KEY) return gate();
+    api('list').then(function (d) { data = d; document.getElementById('loading').style.display = 'none'; document.getElementById('app').style.display = ''; render(); }).catch(gate);
+  }
+
+  function render() {
+    var schools = data.schools || [];
+    var bands = schools.reduce(function (a, s) { return a.concat(s.bands); }, []);
+    var shirts = bands.reduce(function (n, b) { return n + b.shirts; }, 0);
+    var guests = schools.reduce(function (n, s) { return n + (parseInt(s.expected_guests, 10) || 0); }, 0);
+    document.getElementById('stats').innerHTML =
+      stat(bands.length + ' / 12', 'Bands') + stat(schools.length, 'Schools') +
+      stat(bands.filter(function (b) { return !b.missing.length; }).length, 'Bands complete') +
+      stat(schools.filter(function (s) { return s.status !== 'open'; }).length, 'Schools signed') +
+      stat(shirts, 'Shirts pre-ordered') + stat(guests ? '~' + guests : '—', 'Guests expected');
+
+    var wrap = document.getElementById('schools'); wrap.innerHTML = '';
+    schools.forEach(function (s) {
+      var el = document.createElement('div'); el.className = 'a-school';
+      var head = document.createElement('div'); head.className = 'a-school-head';
+      head.innerHTML = '<h3>' + esc(s.school_name) + '</h3>' +
+        '<span class="who">' + esc(s.coordinator_name || 'no coordinator yet') + (s.coordinator_email ? ' · <a href="mailto:' + esc(s.coordinator_email) + '">' + esc(s.coordinator_email) + '</a>' : '') + '</span>' +
+        '<span class="pill ' + (s.status === 'locked' ? 'pill-lock' : s.status === 'submitted' ? 'pill-done' : 'pill-open') + '">' + esc(s.status === 'submitted' ? 'signed' : s.status) + '</span>' +
+        '<span class="who">school info ' + s.complete_pct + '%' + (s.missing.length ? ' · missing: ' + esc(s.missing.join(', ')) : '') + ' · bands ' + s.bands_complete + '/' + s.bands.length + '</span>';
+      head.appendChild(btn('Copy school link', function () { copy(location.origin + s.portal_url, this); }));
+      head.appendChild(btn('+ Band', function () { var n = prompt('Band name (optional)'); if (n === null) return; api('add-band', { school_id: s.id, band_name: n }).then(load); }));
+      head.appendChild(btn(s.status === 'locked' ? 'Unlock' : 'Lock', function () { api('status', { id: s.id, status: s.status === 'locked' ? 'open' : 'locked' }).then(load); }));
+      el.appendChild(head);
+      s.bands.forEach(function (b, i) {
+        var row = document.createElement('div'); row.className = 'a-band';
+        row.innerHTML = '<span class="n" style="color:var(--muted)">' + (i + 1) + '</span>' +
+          '<div class="nm">' + esc(b.band_name || '(unnamed)') + '<small>' + b.members_count + ' members · ' + b.songs_count + ' songs' + (b.shirts ? ' · <span style="color:var(--gold)">' + b.shirts + ' shirts</span>' : '') + '</small></div>' +
+          '<div><div class="a-mini"><i style="width:' + b.complete_pct + '%"></i></div><div style="font-size:12px;color:var(--muted);margin-top:4px">' + b.complete_pct + '%</div></div>' +
+          '<div class="a-miss">' + (b.missing.length ? 'missing: ' + esc(b.missing.join(', ')) : '<span style="color:#4ade9b">complete ✓</span>') + '</div>' +
+          '<div></div>';
+        row.lastElementChild.appendChild(btn('Copy band link', function () { copy(location.origin + b.portal_url, this); }));
+        el.appendChild(row);
+      });
+      wrap.appendChild(el);
+    });
+
+    document.getElementById('addonList').innerHTML = (data.addons || []).length
+      ? data.addons.map(function (a) {
+          return '<div style="padding:10px 0;border-bottom:1px solid var(--border2)"><b>' + esc(a.who) + '</b> → ' + esc(a.addon) +
+            (a.note ? ' · <span style="color:#c3cbe8">' + esc(a.note) + '</span>' : '') +
+            ' <span style="color:var(--muted);font-size:12.5px">' + new Date(a.created_at).toLocaleString() + '</span></div>';
+        }).join('')
+      : '<p style="color:var(--muted)">No requests yet.</p>';
+  }
+
+  window.createSchool = function () {
+    var out = document.getElementById('createOut');
+    var names = val('nNames') ? val('nNames').split(',').map(function (s) { return s.trim(); }).filter(Boolean) : [];
+    var payload = { school_name: val('nSchool'), band_count: val('nCount'), coordinator_name: val('nCoach'), coordinator_email: val('nEmail'), coordinator_phone: val('nPhone'), band_names: names };
+    if (!payload.school_name) { out.textContent = 'School name is required.'; return; }
+    out.textContent = 'Creating…';
+    api('create', payload).then(function (d) {
+      out.innerHTML = '<div class="a-links"><b>' + esc(d.school.school_name) + '</b> — paste these into the coordinator\'s email:<br>' +
+        'School page (coordinator): <code>' + esc(location.origin + d.school.portal_url) + '</code><br>' +
+        d.bands.map(function (b, i) { return 'Band ' + (i + 1) + (b.band_name ? ' (' + esc(b.band_name) + ')' : '') + ': <code>' + esc(location.origin + b.portal_url) + '</code>'; }).join('<br>') + '</div>';
+      ['nSchool', 'nCoach', 'nEmail', 'nPhone', 'nNames'].forEach(function (id) { document.getElementById(id).value = ''; });
+      document.getElementById('nCount').value = 1;
+      load();
+    }).catch(function () { out.textContent = 'Could not create the school.'; });
+  };
+
+  function stat(n, l) { return '<div class="a-stat"><div class="n">' + esc(n) + '</div><div class="l">' + esc(l) + '</div></div>'; }
+  function val(id) { return document.getElementById(id).value.trim(); }
+  function btn(label, fn) { var b = document.createElement('button'); b.className = 'a-copy'; b.textContent = label; b.addEventListener('click', fn); return b; }
+  function copy(text, el) { navigator.clipboard.writeText(text).then(function () { var o = el.textContent; el.textContent = 'Copied ✓'; setTimeout(function () { el.textContent = o; }, 1600); }); }
+  function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+  load();
+})();
+</script>
+</body>
+</html>

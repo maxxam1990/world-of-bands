@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Band Page — World of Bands Florida</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" type="image/png" href="/assets/img/crest.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/portal.css">
+</head>
+<body>
+
+<div class="p-topbar">
+  <a href="/"><img src="/assets/img/wordmark.png" alt="World of Bands Florida"></a>
+  <div class="right">
+    <div class="lang-sw">
+      <button id="btn-en" class="on" onclick="setLang('en')">EN</button>
+      <button id="btn-es" onclick="setLang('es')">ES</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ no / bad token ============ -->
+<div class="p-gate" id="gate" style="display:none">
+  <h1><span data-en>Portal Link Not Recognised</span><span data-es>Enlace No Reconocido</span></h1>
+  <p>
+    <span data-en>This band portal link isn't valid. Use the exact link from your registration confirmation email — it's unique to your band and can't be typed from memory.</span>
+    <span data-es>Este enlace del portal no es válido. Usa el enlace exacto de tu correo de confirmación de registro — es único para tu banda y no puede escribirse de memoria.</span>
+  </p>
+  <a href="mailto:info@worldofbands.com" class="btn btn-blue">
+    <span data-en>Email the Team</span><span data-es>Escríbenos</span>
+  </a>
+</div>
+
+<div class="p-loading" id="loading">
+  <span data-en>Loading your band portal…</span><span data-es>Cargando el portal de tu banda…</span>
+</div>
+
+<!-- ============ portal ============ -->
+<main class="p-body" id="app" style="display:none">
+
+  <div class="p-head">
+    <div class="sec-kicker"><span data-en>Band Page</span><span data-es>Página de la Banda</span></div>
+    <h1 id="bandName">—</h1>
+    <p class="sub"><b id="bandSchool">—</b> &nbsp;<span class="pill pill-open" id="statusPill">—</span></p>
+    <p class="sub" style="margin-top:10px" id="introLine">
+      <span data-en>Four short steps about your band. Your coach handles the school info and signs for everyone. Saves as you go — due <b>Friday, September 18</b>.</span>
+      <span data-es>Cuatro pasos cortos sobre tu banda. Tu coach se encarga de la info de la escuela y firma por todos. Se guarda solo — vence el <b>viernes 18 de septiembre</b>.</span>
+    </p>
+  </div>
+
+  <div class="p-note warn" id="lockNote" style="display:none">
+    <span data-en><b>This page is locked.</b> Your school's submission is final. Need a change? Email <a href="mailto:info@worldofbands.com" style="color:var(--gold)">info@worldofbands.com</a>.</span>
+    <span data-es><b>Esta página está bloqueada.</b> El envío de tu escuela es final. ¿Necesitas un cambio? Escribe a <a href="mailto:info@worldofbands.com" style="color:var(--gold)">info@worldofbands.com</a>.</span>
+  </div>
+
+  <div class="steps" id="stepbar" role="navigation" aria-label="Steps"></div>
+
+  <!-- ============ STEP 1 · files ============ -->
+  <section class="step" data-step="1">
+    <h2><span data-en>Your logo and a band photo</span><span data-es>Tu logo y una foto de la banda</span></h2>
+    <p class="hint"><span data-en>The logo must be <b>PNG with a transparent background</b> (or SVG) so we can drop it onto posters, screens and social graphics. Biggest files you have.</span><span data-es>El logo debe ser <b>PNG con fondo transparente</b> (o SVG) para poder usarlo en afiches, pantallas y gráficos de redes. Los archivos más grandes que tengas.</span></p>
+    <div class="up-grid" data-upload-kinds="logo,band_photo"></div>
+    <h3 class="sub-h"><span data-en>Extra photos</span><span data-es>Fotos adicionales</span> <em class="opt"><span data-en>optional</span><span data-es>opcional</span></em></h3>
+    <p class="hint" style="margin-bottom:14px"><span data-en>Rehearsals, past shows, portraits — anything we can use in your features.</span><span data-es>Ensayos, shows pasados, retratos — lo que podamos usar en sus features.</span></p>
+    <div class="up-grid" data-upload-kinds="press_photo"></div>
+  </section>
+
+  <!-- ============ STEP 2 · about ============ -->
+  <section class="step" data-step="2">
+    <h2><span data-en>About the band</span><span data-es>Sobre la banda</span></h2>
+    <p class="hint"><span data-en>The announcer reads from this, and so does our social team.</span><span data-es>El presentador lee de aquí, y también nuestro equipo de redes.</span></p>
+    <div class="f-field">
+      <label><span data-en>Band name</span><span data-es>Nombre de la banda</span></label>
+      <input type="text" data-f="band_name" maxlength="160" data-en-ph="Exactly as it should appear on stage and on certificates" data-es-ph="Tal como debe aparecer en el escenario y los certificados">
+    </div>
+    <div class="f-field">
+      <label><span data-en>Your bio</span><span data-es>Tu biografía</span></label>
+      <textarea data-f="bio_en" maxlength="1200" style="min-height:150px" data-en-ph="Who you are, how you got together, what you sound like. A short paragraph is perfect." data-es-ph="Quiénes son, cómo se juntaron, cómo suenan. Un párrafo corto es perfecto."></textarea>
+    </div>
+    <div class="f-field">
+      <label><span data-en>One line that sums you up</span><span data-es>Una frase que los describa</span></label>
+      <input type="text" data-f="hook_line" maxlength="180" data-en-ph="Five kids from Kissimmee who only play songs older than they are." data-es-ph="Cinco chicos de Kissimmee que solo tocan canciones más viejas que ellos.">
+    </div>
+    <div class="f-row">
+      <div class="f-field"><label><span data-en>Hometown</span><span data-es>Ciudad</span></label><input type="text" data-f="hometown" maxlength="120" data-en-ph="Orlando, FL" data-es-ph="Orlando, FL"></div>
+      <div class="f-field"><label><span data-en>Year formed</span><span data-es>Año de formación</span> <em class="opt"><span data-en>optional</span><span data-es>opcional</span></em></label><input type="text" data-f="formed_year" maxlength="12" data-en-ph="2024" data-es-ph="2024"></div>
+    </div>
+    <div class="f-field">
+      <label><span data-en>Instagram — the band's, or your school's if the band doesn't have one</span><span data-es>Instagram — de la banda, o de la escuela si la banda no tiene</span> <em class="opt"><span data-en>optional · we'll tag you</span><span data-es>opcional · los etiquetamos</span></em></label>
+      <input type="text" data-f="instagram" maxlength="120" data-en-ph="@yourband or @yourschool" data-es-ph="@tubanda o @tuescuela">
+    </div>
+  </section>
+
+  <!-- ============ STEP 3 · members ============ -->
+  <section class="step" data-step="3">
+    <h2><span data-en>Members</span><span data-es>Integrantes</span></h2>
+    <p class="hint"><span data-en>Everyone on stage. Names print on certificates exactly as typed.</span><span data-es>Todos los que estarán en el escenario. Los nombres se imprimen en los certificados tal como los escribas.</span></p>
+    <div class="rowset" id="members"></div>
+    <button class="rs-add" type="button" onclick="addMember()">+ <span data-en>Add a band member</span><span data-es>Agregar integrante</span></button>
+
+    <h3 class="sub-h"><span data-en>Band coach</span><span data-es>Coach de la banda</span></h3>
+    <p class="hint" style="margin-bottom:14px"><span data-en>The adult who runs this band's rehearsals and comes with you on event day.</span><span data-es>El adulto que dirige los ensayos de esta banda y los acompaña el día del evento.</span></p>
+    <button class="rs-add" type="button" id="sameAsBtn" style="display:none;margin:0 0 14px" onclick="sameAsCoordinator()"></button>
+    <div class="f-row">
+      <div class="f-field"><label><span data-en>Full name</span><span data-es>Nombre completo</span></label><input type="text" data-f="coach_name" maxlength="120"></div>
+      <div class="f-field"><label><span data-en>Phone</span><span data-es>Teléfono</span></label><input type="tel" data-f="coach_phone" maxlength="40"></div>
+    </div>
+    <div class="f-field"><label>Email <em class="opt"><span data-en>optional</span><span data-es>opcional</span></em></label><input type="email" data-f="coach_email" maxlength="200"></div>
+  </section>
+
+  <!-- ============ STEP 4 · songs + gear ============ -->
+  <section class="step" data-step="4">
+    <h2><span data-en>Songs and gear</span><span data-es>Canciones y equipo</span></h2>
+    <p class="hint"><span data-en>Qualifying set is 5 minutes, division set is 10. List what you might play.</span><span data-es>El set clasificatorio es de 5 minutos, el de división de 10. Lista lo que podrían tocar.</span></p>
+    <div class="p-note warn" style="margin-bottom:18px">
+      <span data-en><b>Family crowd.</b> Song choices can't contain profanity — no bad words, no explicit content, in any language. Choose the clean version or a different song.</span>
+      <span data-es><b>Público familiar.</b> Las canciones no pueden tener groserías — sin malas palabras ni contenido explícito, en ningún idioma. Elijan la versión limpia u otra canción.</span>
+    </div>
+    <div class="rowset" id="songs"></div>
+    <button class="rs-add" type="button" onclick="addSong()">+ <span data-en>Add a song</span><span data-es>Agregar canción</span></button>
+    <div class="f-field" style="margin-top:28px">
+      <label><span data-en>What should our sound crew know?</span><span data-es>¿Qué debe saber nuestro equipo de sonido?</span> <em class="opt"><span data-en>optional</span><span data-es>opcional</span></em></label>
+      <textarea data-f="tech_notes" maxlength="2000" data-en-ph="What you're bringing, what you need from us (drum kit, amps, mics), backing tracks, keyboards…" data-es-ph="Qué traen, qué necesitan de nosotros (batería, amplis, micrófonos), pistas, teclados…"></textarea>
+    </div>
+    <h3 class="sub-h"><span data-en>Do you have a specific setup for the band?</span><span data-es>¿Tienen un montaje específico para la banda?</span> <em class="opt"><span data-en>optional</span><span data-es>opcional</span></em></h3>
+    <p class="hint" style="margin-bottom:14px"><span data-en>Upload a stage plot — a sketch of where everyone stands is enough.</span><span data-es>Suban un diagrama de escenario — un bosquejo de dónde va cada quien es suficiente.</span></p>
+    <div class="up-grid" data-upload-kinds="stage_plot" style="max-width:260px"></div>
+
+    <div class="submit-box" id="doneBox"></div>
+
+    <div id="addonsCard">
+      <h3 class="sub-h" style="margin-top:34px"><span data-en>Optional extras</span><span data-es>Extras opcionales</span></h3>
+      <p class="hint" style="margin-bottom:16px"><span data-en>Not required, doesn't affect judging.</span><span data-es>No es obligatorio ni afecta la evaluación.</span></p>
+      <div class="addons">
+        <div class="addon feature">
+          <h3><span data-en>Band shirts — pre-order</span><span data-es>Camisetas — preventa</span></h3>
+          <div class="cost"><span data-en>$25 each · your logo + the event crest</span><span data-es>$25 c/u · su logo + el escudo del evento</span></div>
+          <p><span data-en>Printed with the logo you uploaded. Collect sizes from members and families, enter the counts, and we'll invoice your school before event day. Handed out at check-in.</span><span data-es>Impresas con el logo que subieron. Recojan tallas de integrantes y familias, anoten las cantidades, y facturamos a la escuela antes del evento. Se entregan en el registro.</span></p>
+          <div class="sizes" id="sizes"></div>
+          <div class="f-field" style="margin-top:12px"><input type="text" data-f="merch_notes" maxlength="500" data-en-ph="Notes — colour preference, names on backs, questions…" data-es-ph="Notas — color, nombres en la espalda, preguntas…"></div>
+          <div class="sizes-total" id="sizesTotal"></div>
+        </div>
+        <div class="addon">
+          <h3><span data-en>Photo pack</span><span data-es>Paquete de fotos</span></h3>
+          <div class="cost">$45</div>
+          <p><span data-en>Every edited photo of your band from event day — stage, backstage, awards — as a download within two weeks.</span><span data-es>Todas las fotos editadas de su banda del día del evento — escenario, backstage, premios — como descarga en dos semanas.</span></p>
+          <button class="btn btn-ghost" type="button" onclick="wantAddon('photo_pack', this)"><span data-en>Notify Me</span><span data-es>Avísenme</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="step-nav">
+    <button class="btn btn-ghost" id="backBtn" type="button" onclick="goStep(-1)">← <span data-en>Back</span><span data-es>Atrás</span></button>
+    <div class="state" id="saveState"><span class="dot"></span><span id="saveText"><span data-en>Saved</span><span data-es>Guardado</span></span></div>
+    <button class="btn btn-blue" id="nextBtn" type="button" onclick="goStep(1)"><span data-en>Next</span><span data-es>Siguiente</span> →</button>
+  </div>
+
+  <p class="fine" style="text-align:center;margin:30px auto 0">
+    <span data-en>Questions? <a href="mailto:info@worldofbands.com" style="color:var(--blue-bright)">info@worldofbands.com</a> · <a href="tel:+14075426129" style="color:var(--blue-bright)">(407) 542-6129</a>. This link is private to your band.</span>
+    <span data-es>¿Preguntas? <a href="mailto:info@worldofbands.com" style="color:var(--blue-bright)">info@worldofbands.com</a> · <a href="tel:+14075426129" style="color:var(--blue-bright)">(407) 542-6129</a>. Este enlace es privado para tu banda.</span>
+  </p>
+</main>
+
+<script src="/portal-common.js"></script>
+<script src="/portal.js"></script>
+</body>
+</html>

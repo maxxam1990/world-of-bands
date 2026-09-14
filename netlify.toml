@@ -1,0 +1,57 @@
+# ============================================================
+# WORLD OF BANDS FLORIDA — Netlify config
+# Repo root is this folder. No build step; functions run on the
+# Node runtime with zero npm dependencies (plain fetch).
+# ============================================================
+
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Pretty per-band portal URLs: /band/<token> serves band.html,
+# which reads the token back out of location.pathname.
+[[redirects]]
+  from = "/band/*"
+  to = "/band.html"
+  status = 200
+
+[[redirects]]
+  from = "/school/*"
+  to = "/school.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
+
+# Function source lives under the publish dir; don't serve it as static files.
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404.html"
+  status = 404
+
+# The portal holds student data — keep it out of search engines entirely.
+[[headers]]
+  for = "/band.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    Referrer-Policy = "no-referrer"
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/school.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    Referrer-Policy = "no-referrer"
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    Referrer-Policy = "no-referrer"
+    Cache-Control = "no-store"
