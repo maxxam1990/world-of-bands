@@ -126,6 +126,22 @@
     }
   }
 
+  /* ---------- row lists: the DOM is the source of truth ----------
+     The server drops empty rows on save, so state can lag behind what's
+     on screen (a fresh empty row). Always rebuild the list from the rows
+     before touching it — never index into state by position. */
+  function readRows(listId) {
+    return Array.prototype.map.call(document.querySelectorAll('#' + listId + ' .rs-row'), function (row) {
+      var o = {};
+      row.querySelectorAll('[data-k]').forEach(function (el) { o[el.getAttribute('data-k')] = el.value; });
+      return o;
+    });
+  }
+  function syncRows(listId) {
+    state.band[listId] = readRows(listId);
+    saver.queue(listId, state.band[listId]);
+  }
+
   /* ---------- members ---------- */
   function members() {
     var wrap = document.getElementById('members'); wrap.innerHTML = '';
@@ -139,17 +155,21 @@
       '<div class="f-field rs-other"' + (m.instrument === 'Other' ? '' : ' style="display:none"') + '><label>' +
       W.esc(W.t('Which instrument?', '¿Cuál instrumento?')) + '</label><input type="text" data-k="instrument_other" value="' + W.esc(m.instrument_other || '') + '"></div>';
     row.querySelector('[data-k="instrument"]').addEventListener('change', function (ev) {
-      row.querySelector('.rs-other').style.display = ev.target.value === 'Other' ? '' : 'none';
+      var other = ev.target.value === 'Other';
+      row.querySelector('.rs-other').style.display = other ? '' : 'none';
+      if (!other) row.querySelector('[data-k="instrument_other"]').value = '';
     });
-    row.appendChild(killBtn(function () { state.band.members.splice(i, 1); saver.queue('members', state.band.members); members(); }));
-    bindRow(row, 'members', i);
+    row.appendChild(killBtn(function () { row.remove(); syncRows('members'); members(); }));
+    bindRow(row, 'members');
     return row;
   }
   window.addMember = function () {
-    state.band.members = state.band.members || [];
-    if (state.band.members.length >= 25) return;
-    state.band.members.push({ name: '', instrument: '', instrument_other: '', age: '' });
-    saver.queue('members', state.band.members); members();
+    var rows = readRows('members');
+    if (rows.length >= 25) return;
+    rows.push({ name: '', instrument: '', instrument_other: '', age: '' });
+    state.band.members = rows; members();
+    var last = document.querySelector('#members .rs-row:last-child [data-k="name"]');
+    if (last) last.focus();
   };
 
   /* ---------- songs ---------- */
@@ -165,15 +185,17 @@
     row.innerHTML = '<div class="f-field"><label>' + W.esc(W.t('Round', 'Ronda')) + '</label><select data-k="round"><option value="">—</option>' + opts + '</select></div>' +
       field('title', W.t('Song title', 'Canción'), s.title) + field('artist', W.t('Original artist', 'Artista original'), s.artist) +
       field('duration', W.t('Approx. length', 'Duración aprox.'), s.duration);
-    row.appendChild(killBtn(function () { state.band.songs.splice(i, 1); saver.queue('songs', state.band.songs); songs(); }));
-    bindRow(row, 'songs', i);
+    row.appendChild(killBtn(function () { row.remove(); syncRows('songs'); songs(); }));
+    bindRow(row, 'songs');
     return row;
   }
   window.addSong = function () {
-    state.band.songs = state.band.songs || [];
-    if (state.band.songs.length >= 6) return;
-    state.band.songs.push({ round: '', title: '', artist: '', duration: '' });
-    saver.queue('songs', state.band.songs); songs();
+    var rows = readRows('songs');
+    if (rows.length >= 6) return;
+    rows.push({ round: '', title: '', artist: '', duration: '' });
+    state.band.songs = rows; songs();
+    var last = document.querySelector('#songs .rs-row:last-child [data-k="title"]');
+    if (last) last.focus();
   };
 
   function field(key, label, val) {
@@ -188,10 +210,11 @@
     b.setAttribute('aria-label', W.t('Remove row', 'Eliminar fila')); b.disabled = locked(); b.addEventListener('click', fn);
     return b;
   }
-  function bindRow(row, list, index) {
+  function bindRow(row, list) {
     row.querySelectorAll('[data-k]').forEach(function (el) {
       if (locked()) el.disabled = true;
-      el.addEventListener('input', function () { state.band[list][index][el.getAttribute('data-k')] = el.value; saver.queue(list, state.band[list]); });
+      el.addEventListener('input', function () { syncRows(list); });
+      el.addEventListener('change', function () { syncRows(list); });   // <select> on some mobile browsers
     });
   }
 
