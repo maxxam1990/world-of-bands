@@ -5,6 +5,7 @@
 ============================================================ */
 import { db, json, configError } from '../lib/supabase.mjs';
 import { bandMissing, schoolMissing, BAND_KEYS, SCHOOL_KEYS, UUID_RE, pct } from '../lib/rules.mjs';
+import { listAssets } from '../lib/uploads.mjs';
 
 export const config = { path: '/api/admin' };
 
@@ -26,6 +27,8 @@ export default async function handler(req) {
       case 'list':     return json(200, await list());
       case 'create':   return json(200, await create(payload));
       case 'add-band': return json(200, await addBand(payload));
+      case 'band':     return json(200, await bandDetail(payload));
+      case 'school':   return json(200, await schoolDetail(payload));
       case 'status':   return json(200, await setStatus(payload));
       case 'note':     return json(200, await setNote(payload));
       default:         return json(400, { error: 'unknown_action' });
@@ -109,6 +112,27 @@ async function addBand(payload) {
     body: { school_id, band_name: str(payload.band_name, 160) || '' } });
   const b = Array.isArray(r) ? r[0] : r;
   return { band: { id: b.id, band_name: b.band_name, portal_url: '/band/' + b.token } };
+}
+
+/* everything one band uploaded and typed, with 1-hour signed file URLs */
+async function bandDetail(payload) {
+  const id = String(payload.id || '');
+  if (!UUID_RE.test(id)) return { error: 'bad_id' };
+  const rows = await db('bands?id=eq.' + id + '&select=*&limit=1');
+  const band = rows && rows[0];
+  if (!band) return { error: 'not_found' };
+  const assets = await listAssets({ col: 'band_id', id: band.id, prefix: 'bands' });
+  return { band, assets, missing: bandMissing(band, new Set(assets.map((a) => a.kind))) };
+}
+
+async function schoolDetail(payload) {
+  const id = String(payload.id || '');
+  if (!UUID_RE.test(id)) return { error: 'bad_id' };
+  const rows = await db('schools?id=eq.' + id + '&select=*&limit=1');
+  const school = rows && rows[0];
+  if (!school) return { error: 'not_found' };
+  const assets = await listAssets({ col: 'school_id', id: school.id, prefix: 'schools' });
+  return { school, assets, missing: schoolMissing(school, new Set(assets.map((a) => a.kind))) };
 }
 
 async function setStatus(payload) {

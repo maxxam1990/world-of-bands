@@ -102,6 +102,7 @@
         '<span class="who">' + esc(s.coordinator_name || 'no coordinator yet') + (s.coordinator_email ? ' · <a href="mailto:' + esc(s.coordinator_email) + '">' + esc(s.coordinator_email) + '</a>' : '') + '</span>' +
         '<span class="pill ' + (s.status === 'locked' ? 'pill-lock' : s.status === 'submitted' ? 'pill-done' : 'pill-open') + '">' + esc(s.status === 'submitted' ? 'signed' : s.status) + '</span>' +
         '<span class="who">school info ' + s.complete_pct + '%' + (s.missing.length ? ' · missing: ' + esc(s.missing.join(', ')) : '') + ' · bands ' + s.bands_complete + '/' + s.bands.length + '</span>';
+      head.appendChild(btn('View', function () { toggleDetail(el, head, 'school', s.id); }));
       head.appendChild(btn('Copy school link', function () { copy(location.origin + s.portal_url, this); }));
       head.appendChild(btn('+ Band', function () { var n = prompt('Band name (optional)'); if (n === null) return; api('add-band', { school_id: s.id, band_name: n }).then(load); }));
       head.appendChild(btn(s.status === 'locked' ? 'Unlock' : 'Lock', function () { api('status', { id: s.id, status: s.status === 'locked' ? 'open' : 'locked' }).then(load); }));
@@ -113,6 +114,7 @@
           '<div><div class="a-mini"><i style="width:' + b.complete_pct + '%"></i></div><div style="font-size:12px;color:var(--muted);margin-top:4px">' + b.complete_pct + '%</div></div>' +
           '<div class="a-miss">' + (b.missing.length ? 'missing: ' + esc(b.missing.join(', ')) : '<span style="color:#4ade9b">complete ✓</span>') + '</div>' +
           '<div></div>';
+        row.lastElementChild.appendChild(btn('View', function () { toggleDetail(el, row, 'band', b.id); }));
         row.lastElementChild.appendChild(btn('Copy band link', function () { copy(location.origin + b.portal_url, this); }));
         el.appendChild(row);
       });
@@ -127,6 +129,64 @@
         }).join('')
       : '<p style="color:var(--muted)">No requests yet.</p>';
   }
+
+  /* ---------- detail panels: what they uploaded and typed ---------- */
+  function toggleDetail(container, afterEl, kind, id) {
+    var existing = afterEl.nextElementSibling;
+    if (existing && existing.classList.contains('a-detail')) { existing.remove(); return; }
+    container.querySelectorAll('.a-detail').forEach(function (d) { d.remove(); });
+    var panel = document.createElement('div'); panel.className = 'a-detail'; panel.textContent = 'Loading…';
+    afterEl.insertAdjacentElement('afterend', panel);
+    api(kind, { id: id }).then(function (d) { panel.innerHTML = kind === 'band' ? bandPanel(d) : schoolPanel(d); })
+      .catch(function () { panel.textContent = 'Could not load.'; });
+  }
+  function files(assets, label) {
+    if (!assets.length) return '<p class="a-none">No ' + label + ' uploaded yet.</p>';
+    return '<div class="a-files">' + assets.map(function (f) {
+      var isImg = /^image\//.test(f.mime || '');
+      return '<a class="a-file" href="' + esc(f.url) + '" target="_blank" rel="noopener" title="' + esc(f.filename) + '">' +
+        (isImg ? '<img src="' + esc(f.url) + '" alt="">' : '<div class="pdf">PDF</div>') +
+        '<span>' + esc(f.kind.replace('_', ' ')) + '</span><small>' + esc(f.filename || '') + ' · ' + kb(f.size_bytes) + '</small></a>';
+    }).join('') + '</div>';
+  }
+  function bandPanel(d) {
+    var b = d.band;
+    var members = (b.members || []).map(function (m) {
+      return '<tr><td>' + esc(m.name) + '</td><td>' + esc(m.instrument === 'Other' ? (m.instrument_other || 'Other') : m.instrument) + '</td><td>' + esc(m.age) + '</td></tr>';
+    }).join('');
+    var songs = (b.songs || []).map(function (s) {
+      return '<tr><td>' + esc(s.round) + '</td><td>' + esc(s.title) + '</td><td>' + esc(s.artist) + '</td><td>' + esc(s.duration) + '</td></tr>';
+    }).join('');
+    var sizes = Object.keys(b.merch_sizes || {}).map(function (k) { return k + '×' + b.merch_sizes[k]; }).join(', ');
+    return '<h4>Files</h4>' + files(d.assets, 'files') +
+      '<div class="a-cols"><div>' +
+      '<h4>About</h4>' + kv('Band name', b.band_name) + kv('Hook', b.hook_line) + kv('Hometown', b.hometown) + kv('Formed', b.formed_year) + kv('Instagram', b.instagram) +
+      '<h4>Bio</h4><p class="a-bio">' + (esc(b.bio_en) || '<i>empty</i>') + '</p>' +
+      '<h4>Coach</h4>' + kv('Name', b.coach_name) + kv('Phone', b.coach_phone) + kv('Email', b.coach_email) +
+      '</div><div>' +
+      '<h4>Members (' + (b.members || []).length + ')</h4>' + (members ? '<table class="a-t"><tr><th>Name</th><th>Instrument</th><th>Age</th></tr>' + members + '</table>' : '<p class="a-none">none</p>') +
+      '<h4>Songs</h4>' + (songs ? '<table class="a-t"><tr><th>Round</th><th>Title</th><th>Artist</th><th>~Len</th></tr>' + songs + '</table>' : '<p class="a-none">none</p>') +
+      '<h4>Sound crew notes</h4><p class="a-bio">' + (esc(b.tech_notes) || '<i>none</i>') + '</p>' +
+      '<h4>Shirts</h4>' + kv('Sizes', sizes || '—') + kv('Notes', b.merch_notes) +
+      '</div></div>' +
+      (d.missing.length ? '<p class="a-miss">Still missing: ' + esc(d.missing.join(', ')) + '</p>' : '<p style="color:#4ade9b">Complete ✓</p>');
+  }
+  function schoolPanel(d) {
+    var s = d.school;
+    var perms = ['release_media', 'release_logo', 'release_minors', 'release_clean'].map(function (k) { return (s[k] ? '✓ ' : '✗ ') + k.replace('release_', ''); }).join(' · ');
+    return '<h4>School logo</h4>' + files(d.assets, 'logo') +
+      '<div class="a-cols"><div>' +
+      '<h4>Event coordinator</h4>' + kv('Name', s.coordinator_name) + kv('Phone', s.coordinator_phone) + kv('Email', s.coordinator_email) +
+      '<h4>School contact</h4>' + kv('Name', s.contact_name) + kv('Role', s.contact_role) + kv('Phone', s.contact_phone) + kv('Email', s.contact_email) +
+      '</div><div>' +
+      '<h4>Event day</h4>' + kv('Emergency', s.emergency_name) + kv('Phone', s.emergency_phone) + kv('Guests', s.expected_guests) + kv('Notes', s.accessibility_notes) +
+      '<h4>Permissions</h4><p>' + perms + '</p>' + kv('Signed by', s.release_signed_by) + kv('Role', s.release_role) +
+      kv('Signed at', s.release_signed_at ? new Date(s.release_signed_at).toLocaleString() : '') + kv('From IP', s.release_ip) +
+      '</div></div>' +
+      (d.missing.length ? '<p class="a-miss">Still missing: ' + esc(d.missing.join(', ')) + '</p>' : '<p style="color:#4ade9b">School info complete ✓</p>');
+  }
+  function kv(k, v) { return '<div class="a-kv"><span>' + esc(k) + '</span>' + (v ? esc(v) : '<i>—</i>') + '</div>'; }
+  function kb(n) { n = Number(n || 0); return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : n >= 1024 ? Math.round(n / 1024) + ' KB' : n + ' B'; }
 
   window.createSchool = function () {
     var out = document.getElementById('createOut');
