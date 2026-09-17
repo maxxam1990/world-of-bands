@@ -298,3 +298,6 @@ table.a-t{width:100%;border-collapse:collapse;font-size:13.5px}
 table.a-t th{text-align:left;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:4px 8px 4px 0;border-bottom:1px solid var(--border2)}
 table.a-t td{padding:5px 8px 5px 0;border-bottom:1px solid var(--border2);color:#fff}
 @media(max-width:820px){.a-cols{grid-template-columns:1fr}}
+
+.a-copy.a-danger{color:#ff7885;border-color:rgba(224,36,52,.35)}
+.a-copy.a-danger:hover{background:rgba(224,36,52,.14);border-color:var(--red)}

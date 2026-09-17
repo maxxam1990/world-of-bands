@@ -3,7 +3,7 @@
    POST /api/admin  { key, action, payload }
    Gated by WOB_ADMIN_KEY. Schools with their bands nested.
 ============================================================ */
-import { db, json, configError } from '../lib/supabase.mjs';
+import { db, json, configError, removeObject } from '../lib/supabase.mjs';
 import { bandMissing, schoolMissing, BAND_KEYS, SCHOOL_KEYS, UUID_RE, pct } from '../lib/rules.mjs';
 import { listAssets } from '../lib/uploads.mjs';
 
@@ -27,6 +27,8 @@ export default async function handler(req) {
       case 'list':     return json(200, await list());
       case 'create':   return json(200, await create(payload));
       case 'add-band': return json(200, await addBand(payload));
+      case 'delete-school': return await deleteSchool(payload);
+      case 'delete-band':   return await deleteBand(payload);
       case 'band':     return json(200, await bandDetail(payload));
       case 'school':   return json(200, await schoolDetail(payload));
       case 'status':   return json(200, await setStatus(payload));
@@ -112,6 +114,60 @@ async function addBand(payload) {
     body: { school_id, band_name: str(payload.band_name, 160) || '' } });
   const b = Array.isArray(r) ? r[0] : r;
   return { band: { id: b.id, band_name: b.band_name, portal_url: '/band/' + b.token } };
+}
+
+/* ---------- deleting ----------
+   An EMPTY school/band (nothing typed, nothing uploaded, not signed) deletes on a
+   plain confirm. Anything holding real data needs confirm_name to match exactly,
+   so a mis-click can't destroy a school's work. Storage files go too. */
+function bandHasData(b, assetCount) {
+  return !!(assetCount || b.band_name || b.bio_en || b.hook_line || b.coach_name || b.tech_notes ||
+            (Array.isArray(b.members) && b.members.length) || (Array.isArray(b.songs) && b.songs.length) ||
+            Object.keys(b.merch_sizes || {}).length);
+}
+async function purgeFiles(filter) {
+  const rows = await db('assets?' + filter + '&select=path');
+  for (const a of rows || []) await removeObject(a.path);
+  return (rows || []).length;
+}
+
+async function deleteSchool(payload) {
+  const id = String(payload.id || '');
+  if (!UUID_RE.test(id)) return json(400, { error: 'bad_id' });
+  const rows = await db('schools?id=eq.' + id + '&select=*&limit=1');
+  const school = rows && rows[0];
+  if (!school) return json(404, { error: 'not_found' });
+
+  const bands = await db('bands?school_id=eq.' + id + '&select=*');
+  const schoolFiles = await db('assets?school_id=eq.' + id + '&select=id');
+  let hasData = school.status !== 'open' || (schoolFiles || []).length > 0 ||
+                !!(school.contact_name || school.emergency_name || school.release_signed_by);
+  for (const b of bands || []) {
+    const files = await db('assets?band_id=eq.' + b.id + '&select=id');
+    if (bandHasData(b, (files || []).length)) hasData = true;
+  }
+  if (hasData && String(payload.confirm_name || '').trim() !== school.school_name) {
+    return json(409, { error: 'has_data', school_name: school.school_name });
+  }
+  let files = await purgeFiles('school_id=eq.' + id);
+  for (const b of bands || []) files += await purgeFiles('band_id=eq.' + b.id);
+  await db('schools?id=eq.' + id, { method: 'DELETE', prefer: 'return=minimal' });   // bands/assets/addons cascade
+  return json(200, { ok: true, deleted: { school: school.school_name, bands: (bands || []).length, files } });
+}
+
+async function deleteBand(payload) {
+  const id = String(payload.id || '');
+  if (!UUID_RE.test(id)) return json(400, { error: 'bad_id' });
+  const rows = await db('bands?id=eq.' + id + '&select=*&limit=1');
+  const band = rows && rows[0];
+  if (!band) return json(404, { error: 'not_found' });
+  const files = await db('assets?band_id=eq.' + id + '&select=id');
+  if (bandHasData(band, (files || []).length) && String(payload.confirm_name || '').trim() !== (band.band_name || '')) {
+    return json(409, { error: 'has_data', band_name: band.band_name });
+  }
+  const n = await purgeFiles('band_id=eq.' + id);
+  await db('bands?id=eq.' + id, { method: 'DELETE', prefer: 'return=minimal' });
+  return json(200, { ok: true, deleted: { band: band.band_name, files: n } });
 }
 
 /* everything one band uploaded and typed, with 1-hour signed file URLs */
