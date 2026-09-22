@@ -28,6 +28,17 @@
   to = "/admin.html"
   status = 200
 
+# Public ticket page (SimpleTix embed). /boletos is the Spanish alias.
+[[redirects]]
+  from = "/tickets"
+  to = "/tickets.html"
+  status = 200
+
+[[redirects]]
+  from = "/boletos"
+  to = "/tickets.html"
+  status = 200
+
 # Function source lives under the publish dir; don't serve it as static files.
 [[redirects]]
   from = "/netlify/*"

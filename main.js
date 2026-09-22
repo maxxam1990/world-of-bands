@@ -85,7 +85,8 @@ document.querySelectorAll('.vid[data-yt]').forEach(function(btn){
 /* ---------- Registration form (Netlify Forms) ----------
    Same pattern as the TWOM website: data-netlify form registered at
    deploy time + fetch POST (urlencoded) + inline success state.   */
-document.getElementById('reg-form').addEventListener('submit', function(ev){
+var regForm = document.getElementById('reg-form');
+if(regForm) regForm.addEventListener('submit', function(ev){
   ev.preventDefault();
   var f = ev.target;
   var get = function(id){ return (document.getElementById(id).value || '').trim(); };
@@ -134,7 +135,7 @@ document.getElementById('reg-form').addEventListener('submit', function(ev){
 });
 
 /* ---------- Countdown to event day ----------
-   Sunday, October 4, 2026 — doors 9:45 AM, opening ceremony 10:00 AM ET. */
+   Sunday, October 4, 2026 — doors 9:00 AM, opening ceremony 10:00 AM ET. */
 (function(){
   var target = new Date('2026-10-04T10:00:00-04:00').getTime();
   var elD = document.getElementById('cd-d'), elH = document.getElementById('cd-h'),
@@ -159,6 +160,49 @@ document.getElementById('reg-form').addEventListener('submit', function(ev){
     elM.textContent = pad(m);
     elS.textContent = pad(s);
   }
+  tick();
+  var timer = setInterval(tick, 1000);
+})();
+
+/* ---------- Ticket pricing tiers (shared by index + tickets page) ----------
+   Early Bird $25 through Sep 28 11:59 PM ET · $35 online until Oct 4 10:00 AM ET
+   · $40 online/at the door after that. Mirrors the SimpleTix ticket-type windows. */
+var WOB_TIERS = {
+  earlyEnd: Date.parse('2026-09-28T23:59:59-04:00'),
+  gaEnd:    Date.parse('2026-10-04T10:00:00-04:00')
+};
+function wobTier(){
+  var n = Date.now();
+  return n <= WOB_TIERS.earlyEnd ? 'early' : (n < WOB_TIERS.gaEnd ? 'ga' : 'door');
+}
+(function(){
+  var t = wobTier(), order = ['early','ga','door'], cur = order.indexOf(t);
+  document.querySelectorAll('[data-tier]').forEach(function(el){
+    var i = order.indexOf(el.getAttribute('data-tier'));
+    el.classList.toggle('now',  i === cur);
+    el.classList.toggle('past', i <  cur);
+    el.classList.toggle('next', i >  cur);
+  });
+  document.querySelectorAll('[data-tier-only]').forEach(function(el){
+    el.hidden = el.getAttribute('data-tier-only') !== t;
+  });
+
+  /* price-change countdown on the tickets page */
+  var box = document.getElementById('pcd');
+  if(!box) return;
+  var target = t === 'early' ? WOB_TIERS.earlyEnd : (t === 'ga' ? WOB_TIERS.gaEnd : 0);
+  var elD = document.getElementById('pc-d'), elH = document.getElementById('pc-h'),
+      elM = document.getElementById('pc-m'), elS = document.getElementById('pc-s');
+  var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
+  function tick(){
+    var diff = target - Date.now();
+    if(diff <= 0){ box.hidden = true; clearInterval(timer); return; }
+    elD.textContent = Math.floor(diff / 86400000);
+    elH.textContent = pad(Math.floor(diff % 86400000 / 3600000));
+    elM.textContent = pad(Math.floor(diff % 3600000 / 60000));
+    elS.textContent = pad(Math.floor(diff % 60000 / 1000));
+  }
+  if(!target){ box.hidden = true; return; }
   tick();
   var timer = setInterval(tick, 1000);
 })();
