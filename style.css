@@ -401,6 +401,9 @@ footer{background:#02030a;border-top:1px solid var(--border2);padding:70px clamp
 }
 
 
+.mc-by{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:-6px 0 14px}
+.mc-by b{color:var(--gold);font-weight:700}
+
 /* ============ TICKETS PAGE ============ */
 .nav-links a.cur{color:#fff}
 .tix-hero{min-height:auto;padding:150px 20px 70px}
