@@ -168,7 +168,7 @@ if(regForm) regForm.addEventListener('submit', function(ev){
    Early Bird $25 through Sep 28 11:59 PM ET · $35 online until Oct 4 10:00 AM ET
    · $40 online/at the door after that. Mirrors the SimpleTix ticket-type windows. */
 var WOB_TIERS = {
-  earlyEnd: Date.parse('2026-09-28T23:59:59-04:00'),
+  earlyEnd: Date.parse('2026-09-29T23:59:59-04:00'),
   gaEnd:    Date.parse('2026-10-04T10:00:00-04:00')
 };
 function wobTier(){
