@@ -39,6 +39,17 @@
   to = "/tickets.html"
   status = 200
 
+# Founding vendor page. /vendedores is the Spanish alias.
+[[redirects]]
+  from = "/vendors"
+  to = "/vendors.html"
+  status = 200
+
+[[redirects]]
+  from = "/vendedores"
+  to = "/vendors.html"
+  status = 200
+
 # Function source lives under the publish dir; don't serve it as static files.
 [[redirects]]
   from = "/netlify/*"
