@@ -34,6 +34,18 @@
 .f-file input[type=file]{padding:10px 12px;font-size:14px}
 .f-hint{font-size:12.5px;color:var(--muted);margin-top:6px}
 #apply{background:var(--bg2)}
+.fv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.fv{background:var(--card);border:1px solid var(--border2);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.fv .tile{background:#fff;height:170px;display:flex;align-items:center;justify-content:center;padding:22px}
+.fv .tile img{max-width:100%;max-height:100%;object-fit:contain}
+.fv .body{padding:18px 20px 20px}
+.fv h3{font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700;letter-spacing:.02em;margin:0 0 6px}
+.fv p{color:var(--muted);font-size:14.5px;margin:0 0 10px}
+.fv .where{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-bright);border:1px solid rgba(79,125,255,.45);border-radius:20px;padding:4px 10px}
+.fv-house{margin-top:18px;color:var(--muted);font-size:14.5px}
+@media(max-width:1000px){.fv-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.fv-grid{grid-template-columns:1fr}}
+
 @media(max-width:840px){.v-grid,.v-list{grid-template-columns:1fr}.v-zero b{font-size:72px}}
 </style>
 </head>
@@ -123,6 +135,24 @@
       <div class="v-card rv"><div class="num">3</div><h3><span data-en>Be there all day</span><span data-es>Quédate todo el día</span></h3><p><span data-en>Load-in 8:00 to 8:45 AM. Staffed until 7:30 PM. Floor-length tablecloth and a banner. Food arrives ready to sell; no cooking on site.</span><span data-es>Montaje de 8:00 a 8:45 AM. Mesa atendida hasta las 7:30 PM. Mantel hasta el piso y un banner. La comida llega lista para vender; no se cocina en sitio.</span></p></div>
     </div>
     <p class="v-note"><span data-en>Food and drink vendors: please also quote us a band lunch for 60 musicians at cost, delivered at 1:00 PM. We may or may not take it.</span><span data-es>Vendedores de comida y bebida: cotízanos también un almuerzo para 60 músicos a precio de costo, entregado a la 1:00 PM. Puede que lo tomemos o no.</span></p>
+  </div>
+</section>
+
+<!-- ==================== FOUNDING VENDORS ==================== -->
+<section id="founding">
+  <div class="wrap">
+    <div class="rv">
+      <div class="sec-kicker"><span data-en>Founding Vendors 2026</span><span data-es>Vendedores Fundadores 2026</span></div>
+      <h2 class="sec-title"><span data-en>Meet The Lobby.</span><span data-es>Conoce El Lobby.</span></h2>
+      <p class="sec-lead"><span data-en>These businesses said yes to the first World of Bands. Find them in the main lobby at every break.</span><span data-es>Estos negocios dijeron que sí al primer World of Bands. Encuéntralos en el lobby principal en cada receso.</span></p>
+    </div>
+    <div class="fv-grid">
+      <div class="fv rv"><div class="tile"><img src="assets/img/vendors/mar-y-tierra.png" alt="Mar y Tierra Seafood n' Grill"></div><div class="body"><h3>Mar y Tierra</h3><p><span data-en>Morning empanadas and coffee. Lunch plates with rice, pernil, chicken and salad. Waters and sodas all day.</span><span data-es>Empanadas y café en la mañana. Platos de almuerzo con arroz, pernil, pollo y ensalada. Aguas y sodas todo el día.</span></p><span class="where"><span data-en>Food corner · left wing</span><span data-es>Comida · ala izquierda</span></span></div></div>
+      <div class="fv rv"><div class="tile"><img src="assets/img/vendors/yerixs-cakes.png" alt="Yerix's Cakes"></div><div class="body"><h3>Yerix's Cakes</h3><p><span data-en>Cakes, cookies, cake pops and pastries, made fresh.</span><span data-es>Pasteles, galletas, cake pops y pastelería, hechos frescos.</span></p><span class="where"><span data-en>Sweets · by the entrance</span><span data-es>Dulces · junto a la entrada</span></span></div></div>
+      <div class="fv rv"><div class="tile"><img src="assets/img/vendors/lady-t-lemonade.png" alt="Lady T Lemonade"></div><div class="body"><h3>Lady T Lemonade</h3><p><span data-en>Fruit-infused lemonades in pre-chilled 16-oz pouches. Mango pineapple, strawberry, blueberry and more.</span><span data-es>Limonadas con fruta en bolsas frías de 16 oz. Mango piña, fresa, arándano y más.</span></p><span class="where"><span data-en>Drinks corner · right wing</span><span data-es>Bebidas · ala derecha</span></span></div></div>
+      <div class="fv rv"><div class="tile"><img src="assets/img/vendors/dizart.png" alt="DizArt face painting"></div><div class="body"><h3>DizArt</h3><p><span data-en>Face painting in your band's colors. $5 half face or band colors, $10 full face. 11:00 AM to 4:30 PM.</span><span data-es>Pintacaritas con los colores de tu banda. $5 media cara o colores de banda, $10 cara completa. 11:00 AM a 4:30 PM.</span></p><span class="where"><span data-en>Kids' corner · right wing</span><span data-es>Zona de niños · ala derecha</span></span></div></div>
+    </div>
+    <p class="fv-house rv"><span data-en>Also in the lobby: the World of Bands popcorn stand and the official merch booth with the 2026 shirt. A few spaces are still open for Sunday, apply below.</span><span data-es>También en el lobby: el puesto de palomitas de World of Bands y la tienda oficial con la camiseta 2026. Quedan unos pocos espacios para el domingo, aplica abajo.</span></p>
   </div>
 </section>
 
