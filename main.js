@@ -17,6 +17,7 @@ function setLang(lang){
     o.textContent = lang === 'es' ? o.getAttribute('data-es-label') : o.getAttribute('data-en-label');
   });
   try{ localStorage.setItem('wob-lang', lang); }catch(e){}
+  if(typeof syncSelfVideos === 'function') syncSelfVideos();
 }
 
 /* ---------- Mobile nav ---------- */
@@ -66,6 +67,33 @@ function closeLb(){
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
+
+/* ---------- Self-hosted trailer (EN/ES): plays the visible language; a language switch mid-play switches the video ---------- */
+function svVisible(box){
+  var es = document.documentElement.classList.contains('es');
+  return box.querySelector(es ? 'video[data-es]' : 'video[data-en]');
+}
+function svPlay(box){
+  var v = svVisible(box); if(!v) return;
+  box.classList.add('playing');
+  v.controls = true;
+  var p = v.play(); if(p && p.catch) p.catch(function(){});
+  if(window.fbq) fbq('trackCustom', 'TrailerPlay', { lang: v.hasAttribute('data-es') ? 'es' : 'en' });
+}
+function syncSelfVideos(){
+  document.querySelectorAll('.self-vid').forEach(function(box){
+    var vids = box.querySelectorAll('video'), was = false;
+    vids.forEach(function(v){ if(!v.paused){ was = true; v.pause(); } });
+    if(was) svPlay(box);  /* the toggle tap is a user gesture, so the other language can start right away */
+    else { box.classList.remove('playing'); vids.forEach(function(v){ v.controls = false; }); }
+  });
+}
+document.querySelectorAll('.self-vid').forEach(function(box){
+  box.querySelector('.sv-start').addEventListener('click', function(){ svPlay(box); });
+  box.querySelectorAll('video').forEach(function(v){
+    v.addEventListener('ended', function(){ box.classList.remove('playing'); v.controls = false; v.load(); });
+  });
+});
 
 /* ---------- Click-to-play YouTube facades ---------- */
 document.querySelectorAll('.vid[data-yt]').forEach(function(btn){

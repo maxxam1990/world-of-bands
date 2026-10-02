@@ -241,6 +241,13 @@ section{padding:110px clamp(20px,5vw,60px);position:relative}
 .vid .vid-cap b{display:block;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.04em;color:#fff}
 .vid .vid-cap span{font-family:'Barlow Condensed',sans-serif;font-size:13.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#aab4dd}
 .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* self-hosted trailer: one <video> per language (the hidden language is display:none), a facade button until play */
+.self-vid{cursor:default}
+.self-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;display:block}
+.self-vid .sv-start{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.self-vid .sv-start:hover .play{transform:translate(-50%,-50%) scale(1.1)}
+.self-vid.playing .sv-start{display:none}
+.self-vid.playing video{object-fit:contain}
 .video-row{display:grid;grid-template-columns:340px 1fr;gap:22px;align-items:stretch}
 .video-row .vid.wide{aspect-ratio:auto;min-height:320px}
 @media(max-width:840px){.video-row{grid-template-columns:1fr}.video-row .vid.wide{aspect-ratio:16/9;min-height:0}.vid.tall{max-height:none;max-width:340px;margin:0 auto}}
