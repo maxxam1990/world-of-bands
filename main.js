@@ -226,8 +226,104 @@ function wobPhase(){
   var timer = setInterval(tick, 1000);
 })();
 
-/* ---------- Restore language ---------- */
+/* ---------- Meta Pixel: OFF until you paste your Pixel ID ----------
+   Events Manager → Data sources → your pixel → copy the ID (15–16 digits),
+   paste it between the quotes, commit, push. Empty = nothing loads. */
+var WOB_META_PIXEL_ID = '';
+if(WOB_META_PIXEL_ID){
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', WOB_META_PIXEL_ID);
+  fbq('track', 'PageView');
+}
+function wobTrack(name, params){ try{ if(window.fbq) window.fbq('track', name, params || {}); }catch(e){} }
+
+/* ---------- Checkout links: straight to the full-screen SimpleTix checkout ----------
+   WOB_CHECKOUT is the same ticket page SimpleTix's own event page opens on
+   "Get Tickets" (fastest on phones and inside Instagram/Facebook browsers).
+   UTMs + fbclid from the landing URL ride along so ad clicks stay traceable. */
+var WOB_CHECKOUT = 'https://embed.prod.simpletix.com/5e7a7eda-f3ff-45b0-a45b-bcb2cab89974/291875';
+var WOB_UTM = (function(){
+  var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'], got = {};
+  try{ var q = new URLSearchParams(location.search); keys.forEach(function(k){ var v = q.get(k); if(v) got[k] = v; }); }catch(e){}
+  try{
+    if(Object.keys(got).length) sessionStorage.setItem('wob-utm', JSON.stringify(got));
+    else got = JSON.parse(sessionStorage.getItem('wob-utm') || '{}') || {};
+  }catch(e){}
+  return got;
+})();
+function wobCheckoutUrl(where){
+  var u, t = {};
+  try{ u = new URL(WOB_CHECKOUT); }catch(e){ return WOB_CHECKOUT; }
+  Object.keys(WOB_UTM).forEach(function(k){ t[k] = WOB_UTM[k]; });
+  if(!t.utm_source){ t.utm_source = 'worldofbands.com'; t.utm_medium = 'website'; t.utm_campaign = 'wob2026'; }
+  if(!t.utm_content) t.utm_content = where;
+  Object.keys(t).forEach(function(k){ u.searchParams.set(k, t[k]); });
+  return u.toString();
+}
+function wobWireCheckout(a, where){
+  a.href = wobCheckoutUrl(where);
+  a.addEventListener('click', function(){
+    wobTrack('InitiateCheckout', { value: wobTier() === 'door' ? 40 : 35, currency: 'USD', content_name: 'World of Bands 2026 pass' });
+  });
+}
+/* Instagram / Facebook / Messenger / TikTok / Snapchat in-app browsers */
+var WOB_IN_APP = /Instagram|FBAN|FBAV|FB_IAB|FB4A|FBIOS|musical_ly|BytedanceWebview|TikTok|Snapchat/i.test(navigator.userAgent || '');
+(function(){
+  document.querySelectorAll('a[data-checkout]').forEach(function(a){ wobWireCheckout(a, a.getAttribute('data-checkout')); });
+
+  /* tickets page inside an in-app browser: skip the embedded iframe checkout and
+     send every Buy button to the full-screen checkout (one tap, no nested scrolling) */
+  var box = document.getElementById('inapp-buy'), shell = document.querySelector('.buy-shell');
+  if(WOB_IN_APP && box && shell){
+    var ifr = shell.querySelector('iframe'), holder = ifr ? ifr.parentNode : null;
+    if(ifr) holder.removeChild(ifr);   /* stops it loading in the app browser */
+    shell.hidden = true;
+    box.hidden = false;
+    document.querySelectorAll('a[href="#buy"]').forEach(function(a){
+      if(a.id === 'show-embed') return;
+      wobWireCheckout(a, 'inapp_' + (a.closest('.hero') ? 'hero' : 'page'));
+    });
+    var show = document.getElementById('show-embed');
+    if(show) show.addEventListener('click', function(ev){
+      ev.preventDefault();
+      if(ifr && !ifr.parentNode) holder.appendChild(ifr);
+      shell.hidden = false; box.hidden = true;
+      shell.scrollIntoView();
+    });
+  }
+
+  /* sticky bar (phones): out of the way while the checkout section is on screen */
+  var bar = document.getElementById('tix-bar'), buy = document.getElementById('buy'), buyOnScreen = false;
+  if(bar && buy && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){ buyOnScreen = e.isIntersecting; bar.classList.toggle('off', buyOnScreen); });
+    }, { threshold: 0.05 }).observe(buy);
+  }
+  /* ...and while someone is typing in a form (keeps the keyboard area clear) */
+  if(bar){
+    document.addEventListener('focusin', function(e){ if(e.target.matches && e.target.matches('input,textarea,select')) bar.classList.add('off'); });
+    document.addEventListener('focusout', function(){ if(!buyOnScreen) bar.classList.remove('off'); });
+  }
+})();
+
+/* ---------- Restore language (/boletos, /comprar or ?lang=es open in Spanish) ---------- */
 try{
   var saved = localStorage.getItem('wob-lang');
   if(saved === 'es') setLang('es');
+  else if(!saved && (/^\/(boletos|comprar)/.test(location.pathname) || /[?&]lang=es(&|$)/.test(location.search))) setLang('es');
 }catch(e){}
+
+/* ---------- Homepage loops: play only while on screen; posters only for reduced motion / data saver ---------- */
+(function(){
+  var vids = document.querySelectorAll('video[data-loop]'); if(!vids.length) return;
+  var still = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || (navigator.connection && navigator.connection.saveData);
+  if(still || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ var v = e.target; if(e.isIntersecting){ var p = v.play(); if(p && p.catch) p.catch(function(){}); } else { v.pause(); } });
+  }, { threshold: 0.35 });
+  vids.forEach(function(v){ io.observe(v); });
+})();

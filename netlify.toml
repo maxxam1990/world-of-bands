@@ -50,6 +50,18 @@
   to = "/vendors.html"
   status = 200
 
+# Short links straight to the full-screen SimpleTix checkout (stage, door QR,
+# coach texts, IG bio/stories). Same page SimpleTix opens from "Get Tickets".
+[[redirects]]
+  from = "/buy"
+  to = "https://embed.prod.simpletix.com/5e7a7eda-f3ff-45b0-a45b-bcb2cab89974/291875"
+  status = 302
+
+[[redirects]]
+  from = "/comprar"
+  to = "https://embed.prod.simpletix.com/5e7a7eda-f3ff-45b0-a45b-bcb2cab89974/291875"
+  status = 302
+
 # Function source lives under the publish dir; don't serve it as static files.
 [[redirects]]
   from = "/netlify/*"
