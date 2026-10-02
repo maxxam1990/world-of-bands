@@ -70,7 +70,7 @@ document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb
 /* ---------- Click-to-play YouTube facades ---------- */
 document.querySelectorAll('.vid[data-yt]').forEach(function(btn){
   btn.addEventListener('click', function(){
-    var id = (document.documentElement.classList.contains('es') && btn.getAttribute('data-yt-es')) || btn.getAttribute('data-yt'); // Spanish mode plays the Spanish cut when there is one
+    var id = btn.getAttribute('data-yt');
     var ifr = document.createElement('iframe');
     ifr.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
     ifr.title = 'YouTube video';
