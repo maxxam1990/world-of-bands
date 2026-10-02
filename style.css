@@ -507,3 +507,30 @@ footer{background:#02030a;border-top:1px solid var(--border2);padding:70px clamp
 .hero-venue + .hero-presented{margin-top:14px;font-size:12.5px}
 .day-venue{margin-top:14px;color:#c3cbe8;font-size:15.5px}
 .day-venue a{color:var(--blue-bright)}
+
+/* ============ TICKETS: expired tier hidden, active tiers fill the row ============ */
+.tiers{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.tier.past{display:none}
+.early-ended{margin-top:14px;font-family:'Barlow Condensed',sans-serif;font-size:13.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.stay-line{margin-top:22px;font-size:16.5px;color:#fff;font-weight:500}
+.stay-line b{color:var(--blue-bright)}
+
+/* ============ TICKETS: here's the day + invitation video ============ */
+.day-strip{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;margin-top:40px;align-items:center}
+.day-chips{display:flex;flex-direction:column;gap:8px}
+.day-chip{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:11px 16px}
+.day-chip b{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.06em;color:var(--blue-bright);min-width:74px}
+.day-chip span{font-size:15px;color:#d5dbf2}
+.day-chip.hot{border-color:rgba(224,36,52,.45);background:linear-gradient(120deg,#241019 0%,var(--card) 70%)}
+.day-chip.hot b{color:#ff8b96}
+.day-strip .vid.wide{aspect-ratio:16/9}
+@media(max-width:900px){.day-strip{grid-template-columns:1fr}}
+
+/* ============ TICKETS: students block ============ */
+.students{margin-top:18px;background:linear-gradient(120deg,rgba(224,36,52,.14),rgba(36,86,230,.14));border:1px solid rgba(224,36,52,.35);border-radius:14px;padding:26px 30px}
+.students h3{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.04em;margin-bottom:6px}
+.students p{color:#d5dbf2;font-size:15.5px;max-width:760px}
+.students ul{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.students li{background:rgba(4,6,14,.45);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;font-size:14.5px;color:#d5dbf2}
+.students li b{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;color:#fff;margin-bottom:4px}
+@media(max-width:700px){.students ul{grid-template-columns:1fr}}

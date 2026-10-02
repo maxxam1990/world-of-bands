@@ -192,18 +192,24 @@ function wobPhase(){
     el.classList.toggle('past', i <  cur);
     el.classList.toggle('next', i >  cur);
   });
+  /* the public countdown speaks to everyone: during the band-code window it still
+     counts to the $35 deadline (codes have their own note); labels follow the tier */
   document.querySelectorAll('[data-tier-only]').forEach(function(el){
-    el.hidden = el.getAttribute('data-tier-only') !== p;
+    el.hidden = el.getAttribute('data-tier-only') !== t;
   });
   /* anything that only makes sense while band codes are valid */
   document.querySelectorAll('[data-until="code"]').forEach(function(el){
     el.hidden = Date.now() > WOB_TIERS.codeEnd;
   });
+  /* shown once Early Bird is over (e.g. the one-line "ended" note) */
+  document.querySelectorAll('[data-after-early]').forEach(function(el){
+    el.hidden = t === 'early';
+  });
 
   /* price-change countdown on the tickets page */
   var box = document.getElementById('pcd');
   if(!box) return;
-  var target = p === 'early' ? WOB_TIERS.earlyEnd : (p === 'code' ? WOB_TIERS.codeEnd : (p === 'ga' ? WOB_TIERS.gaEnd : 0));
+  var target = t === 'early' ? WOB_TIERS.earlyEnd : (t === 'ga' ? WOB_TIERS.gaEnd : 0);
   var elD = document.getElementById('pc-d'), elH = document.getElementById('pc-h'),
       elM = document.getElementById('pc-m'), elS = document.getElementById('pc-s');
   var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
