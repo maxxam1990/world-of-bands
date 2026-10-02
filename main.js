@@ -166,17 +166,19 @@ if(regForm) regForm.addEventListener('submit', function(ev){
    Sunday, October 4, 2026 — doors 9:00 AM, opening ceremony 10:00 AM ET. */
 (function(){
   var target = new Date('2026-10-04T10:00:00-04:00').getTime();
+  var over = new Date('2026-10-04T19:30:00-04:00').getTime();   /* venue is empty by 7:30 PM */
   var elD = document.getElementById('cd-d'), elH = document.getElementById('cd-h'),
       elM = document.getElementById('cd-m'), elS = document.getElementById('cd-s'),
       wrap = document.getElementById('countdown'), live = document.getElementById('cd-live');
   if(!wrap) return;
   var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
   function tick(){
-    var diff = target - Date.now();
+    var now = Date.now(), diff = target - now;
     if(diff <= 0){
+      var done = document.getElementById('cd-done');
       wrap.style.display = 'none';
-      live.style.display = 'block';
-      clearInterval(timer);
+      if(now >= over && done){ live.style.display = 'none'; done.style.display = 'block'; clearInterval(timer); }
+      else live.style.display = 'block';   /* keeps ticking through the show so "LIVE" turns into the wrap at 7:30 */
       return;
     }
     var d = Math.floor(diff / 86400000),
@@ -190,6 +192,12 @@ if(regForm) regForm.addEventListener('submit', function(ev){
   }
   tick();
   var timer = setInterval(tick, 1000);
+})();
+
+/* ---------- After the event: no "Get Tickets" bar ---------- */
+(function(){
+  if(Date.now() < Date.parse('2026-10-04T19:30:00-04:00')) return;
+  var tb = document.getElementById('tix-bar'); if(tb) tb.hidden = true;
 })();
 
 /* ---------- Ticket pricing tiers (shared by index + tickets page) ----------

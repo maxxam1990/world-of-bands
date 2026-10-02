@@ -435,7 +435,7 @@ footer{background:#02030a;border-top:1px solid var(--border2);padding:70px clamp
 .tier.now{background:linear-gradient(160deg,#12225c 0%,#0a1230 70%);border-color:rgba(79,125,255,.55);box-shadow:0 0 60px rgba(36,86,230,.22);transform:translateY(-6px)}
 .tier.past{opacity:.42}
 .tier .state{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin-bottom:18px;padding:6px 13px;border-radius:20px;border:1px solid var(--border2);font-family:'Barlow Condensed',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.tier .state span{display:none}
+.tier .state > span{display:none}
 .tier.now .state{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 0 18px rgba(224,36,52,.45)}
 .tier.now .state [data-state="now"],.tier.past .state [data-state="past"],.tier.next .state [data-state="next"]{display:inline}
 .tier h3{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.04em}
@@ -597,3 +597,5 @@ footer{background:#02030a;border-top:1px solid var(--border2);padding:70px clamp
 .lob.lob-video{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:26px;align-items:center;padding:16px 26px 16px 16px}
 .lv-media{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#03050c;border:1px solid rgba(224,36,52,.35)}
 @media(max-width:760px){.lob.lob-video{grid-template-columns:1fr;gap:16px;padding:14px 14px 18px}.loop-card{margin-top:32px}.loop-frame{border-radius:12px}}
+/* the hidden attribute always wins (date-gated copy such as band codes uses it on flex boxes) */
+[hidden]{display:none !important}
