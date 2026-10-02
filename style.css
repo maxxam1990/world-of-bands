@@ -453,3 +453,57 @@ footer{background:#02030a;border-top:1px solid var(--border2);padding:70px clamp
 .venue-map iframe{width:100%;height:100%;min-height:320px;border:0;display:block}
 @media(max-width:1020px){.tiers,.venue-grid{grid-template-columns:1fr}.includes,.info-grid{grid-template-columns:1fr 1fr}.tier.now{transform:none}}
 @media(max-width:840px){.tix-hero{padding-top:120px}.includes,.info-grid{grid-template-columns:1fr}.buy-shell #simpletixEmbed iframe{min-height:760px !important}}
+
+/* ============ MEET THE 12 BANDS ============ */
+#bands{background:var(--bg2)}
+.bands-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
+.band{position:relative;background:linear-gradient(160deg,var(--card) 0%,var(--bg2) 100%);border:1px solid var(--border2);border-radius:14px;padding:24px 18px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;overflow:hidden;scroll-margin-top:90px;transition:transform .25s,border-color .25s,box-shadow .25s}
+.band:hover{transform:translateY(-4px);border-color:var(--border);box-shadow:0 0 40px rgba(36,86,230,.18)}
+.band .slot{position:absolute;top:12px;left:12px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.14em;color:#cfd9ff;background:rgba(36,86,230,.28);border:1px solid rgba(79,125,255,.45);border-radius:20px;padding:4px 10px}
+.band .champ{margin-top:2px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:rgba(245,183,61,.12);border:1px solid rgba(245,183,61,.45);border-radius:20px;padding:4px 10px}
+.band-logo{position:relative;height:150px;width:100%;display:flex;align-items:center;justify-content:center;margin-top:12px}
+.band-logo::before{content:'';position:absolute;inset:8% 14%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(120,150,255,.34) 0%,rgba(120,150,255,.10) 45%,transparent 70%);filter:blur(10px)}
+.band.dark .band-logo::before{background:radial-gradient(ellipse at center,rgba(175,195,255,.6) 0%,rgba(175,195,255,.2) 45%,transparent 70%)}
+.band-logo img{position:relative;max-height:140px;max-width:88%;width:auto;object-fit:contain;filter:drop-shadow(0 6px 16px rgba(0,0,0,.6))}
+.band h4{font-family:'Bebas Neue',sans-serif;font-size:27px;letter-spacing:.04em;line-height:1;margin-top:4px}
+.band .school{font-family:'Barlow Condensed',sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.band.twom .school{color:var(--gold)}
+.vote-note{margin-top:28px;background:linear-gradient(120deg,rgba(36,86,230,.18),rgba(224,36,52,.12));border:1px solid var(--border);border-radius:14px;padding:26px 30px;display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.vote-note .ic{font-size:30px}
+.vote-note p{flex:1 1 320px;font-size:15.5px;color:#d5dbf2}
+.vote-note p b{color:#fff}
+@media(max-width:1020px){.bands-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.bands-grid{grid-template-columns:repeat(2,1fr);gap:12px}.band{padding:20px 12px 18px}.band-logo{height:120px}.band-logo img{max-height:110px}.band h4{font-size:22px}.band .slot{font-size:12px;padding:3px 8px}.band .champ{font-size:10px;padding:3px 7px}}
+
+/* ============ BAND CODE NOTE ============ */
+.code-note{margin-top:30px;background:rgba(245,183,61,.08);border:1px solid rgba(245,183,61,.4);border-radius:14px;padding:22px 26px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.code-note .ic{font-size:28px}
+.code-note p{flex:1 1 300px;color:#e9dfc2;font-size:15.5px}
+.code-note p b{color:var(--gold)}
+.code-note .btn{flex:0 0 auto}
+
+/* ============ THE LOBBY — MAKE A DAY OF IT ============ */
+.lobby-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+.lob{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:22px 22px 20px;display:flex;gap:16px;align-items:flex-start}
+.lob .tile{flex:0 0 76px;height:76px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;padding:8px;overflow:hidden}
+.lob .tile img{max-width:100%;max-height:100%;object-fit:contain}
+.lob .tile.ic{background:rgba(36,86,230,.18);border:1px solid var(--border);font-size:32px}
+.lob h4{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:700;letter-spacing:.03em;margin-bottom:5px}
+.lob p{color:var(--muted);font-size:14.5px}
+.lob .when{display:inline-block;margin-top:8px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-bright)}
+.lob.hot{grid-column:span 3;background:linear-gradient(120deg,#241019 0%,var(--card) 70%);border-color:rgba(224,36,52,.45);box-shadow:0 0 40px rgba(224,36,52,.14)}
+.lob.hot .tile.ic{background:rgba(224,36,52,.2);border-color:rgba(224,36,52,.5)}
+.lob.hot h4{font-family:'Bebas Neue',sans-serif;font-size:28px;font-weight:400;letter-spacing:.04em}
+.lob.hot p{color:#f2c9cd;font-size:15.5px}
+.lobby-more{margin-top:22px;color:var(--muted);font-size:14.5px}
+.lobby-more a{color:var(--blue-bright)}
+@media(max-width:1020px){.lobby-grid{grid-template-columns:repeat(2,1fr)}.lob.hot{grid-column:span 2}}
+@media(max-width:640px){.lobby-grid{grid-template-columns:1fr}.lob.hot{grid-column:span 1}}
+
+/* ============ HERO VENUE LINE ============ */
+.hero-venue{margin-top:42px;font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#cfd9ff;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;align-items:center}
+.hero-venue b{color:#fff;font-weight:700}
+.hero-venue a{color:var(--blue-bright);border-bottom:1px solid rgba(79,125,255,.5)}
+.hero-venue + .hero-presented{margin-top:14px;font-size:12.5px}
+.day-venue{margin-top:14px;color:#c3cbe8;font-size:15.5px}
+.day-venue a{color:var(--blue-bright)}

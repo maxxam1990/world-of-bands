@@ -169,14 +169,23 @@ if(regForm) regForm.addEventListener('submit', function(ev){
    · $40 online/at the door after that. Mirrors the SimpleTix ticket-type windows. */
 var WOB_TIERS = {
   earlyEnd: Date.parse('2026-09-29T23:59:59-04:00'),
+  codeEnd:  Date.parse('2026-10-03T23:59:59-04:00'),   /* band codes [BAND]25 = $10 off */
   gaEnd:    Date.parse('2026-10-04T10:00:00-04:00')
 };
 function wobTier(){
   var n = Date.now();
   return n <= WOB_TIERS.earlyEnd ? 'early' : (n < WOB_TIERS.gaEnd ? 'ga' : 'door');
 }
+/* finer phase for copy + the price countdown: the band-code window sits inside GA */
+function wobPhase(){
+  var n = Date.now();
+  if(n <= WOB_TIERS.earlyEnd) return 'early';
+  if(n <= WOB_TIERS.codeEnd)  return 'code';
+  if(n <  WOB_TIERS.gaEnd)    return 'ga';
+  return 'door';
+}
 (function(){
-  var t = wobTier(), order = ['early','ga','door'], cur = order.indexOf(t);
+  var t = wobTier(), p = wobPhase(), order = ['early','ga','door'], cur = order.indexOf(t);
   document.querySelectorAll('[data-tier]').forEach(function(el){
     var i = order.indexOf(el.getAttribute('data-tier'));
     el.classList.toggle('now',  i === cur);
@@ -184,13 +193,17 @@ function wobTier(){
     el.classList.toggle('next', i >  cur);
   });
   document.querySelectorAll('[data-tier-only]').forEach(function(el){
-    el.hidden = el.getAttribute('data-tier-only') !== t;
+    el.hidden = el.getAttribute('data-tier-only') !== p;
+  });
+  /* anything that only makes sense while band codes are valid */
+  document.querySelectorAll('[data-until="code"]').forEach(function(el){
+    el.hidden = Date.now() > WOB_TIERS.codeEnd;
   });
 
   /* price-change countdown on the tickets page */
   var box = document.getElementById('pcd');
   if(!box) return;
-  var target = t === 'early' ? WOB_TIERS.earlyEnd : (t === 'ga' ? WOB_TIERS.gaEnd : 0);
+  var target = p === 'early' ? WOB_TIERS.earlyEnd : (p === 'code' ? WOB_TIERS.codeEnd : (p === 'ga' ? WOB_TIERS.gaEnd : 0));
   var elD = document.getElementById('pc-d'), elH = document.getElementById('pc-h'),
       elM = document.getElementById('pc-m'), elS = document.getElementById('pc-s');
   var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
