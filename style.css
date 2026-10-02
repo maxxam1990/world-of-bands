@@ -248,6 +248,16 @@ section{padding:110px clamp(20px,5vw,60px);position:relative}
 .self-vid .sv-start:hover .play{transform:translate(-50%,-50%) scale(1.1)}
 .self-vid.playing .sv-start{display:none}
 .self-vid.playing video{object-fit:contain}
+/* the trailer at the top of the page (home + tickets hero) */
+.hero .hero-trailer{width:min(100%,720px);margin:30px auto 6px;border-color:rgba(79,125,255,.38);box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 70px rgba(36,86,230,.2)}
+.hero-inner .hero-ctas{margin-top:30px}
+.hero-ctas + .hero-sub{margin:26px auto 0}
+.hero.with-trailer{padding-top:118px}
+.hero.with-trailer h1{font-size:clamp(44px,9vw,112px);margin:22px 0 6px}
+.tix-hero.with-trailer{padding-top:128px}
+.tix-hero.with-trailer h1{font-size:clamp(42px,8vw,96px)}
+.day-strip.solo{grid-template-columns:1fr;max-width:760px;margin-left:auto;margin-right:auto}
+@media(max-width:840px){.hero .hero-trailer{margin:22px auto 4px;border-radius:12px}.hero-trailer .play{width:62px;height:62px}.hero-trailer .play::after{border-width:11px 0 11px 19px;margin-left:5px}.hero-trailer .vid-cap{padding:28px 16px 11px}.hero-trailer .vid-cap b{font-size:20px}.hero-trailer .vid-cap span{font-size:12px}}
 .video-row{display:grid;grid-template-columns:340px 1fr;gap:22px;align-items:stretch}
 .video-row .vid.wide{aspect-ratio:auto;min-height:320px}
 @media(max-width:840px){.video-row{grid-template-columns:1fr}.video-row .vid.wide{aspect-ratio:16/9;min-height:0}.vid.tall{max-height:none;max-width:340px;margin:0 auto}}
