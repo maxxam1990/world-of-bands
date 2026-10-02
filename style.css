@@ -514,6 +514,7 @@ footer{background:#02030a;border-top:1px solid var(--border2);padding:70px clamp
 .lob.hot p{color:#f2c9cd;font-size:15.5px}
 .lobby-more{margin-top:22px;color:var(--muted);font-size:14.5px}
 .lobby-more a{color:var(--blue-bright)}
+.lob.lob-wide{grid-column:1 / -1}   /* house stuff (popcorn, merch, drawing) under the six vendor cards */
 @media(max-width:1020px){.lobby-grid{grid-template-columns:repeat(2,1fr)}.lob.hot{grid-column:span 2}}
 @media(max-width:640px){.lobby-grid{grid-template-columns:1fr}.lob.hot{grid-column:span 1}}
 
