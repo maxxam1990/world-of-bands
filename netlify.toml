@@ -69,6 +69,18 @@
   to = "/vendors.html"
   status = 200
 
+# Guest survey (Zoho embed, closes Mon Oct 12 2026). /encuesta is the Spanish alias.
+# Query strings pass through, so /survey?src=wa still tags the channel.
+[[redirects]]
+  from = "/survey"
+  to = "/survey.html"
+  status = 200
+
+[[redirects]]
+  from = "/encuesta"
+  to = "/survey.html"
+  status = 200
+
 # Old ticket short links (stage, door QR, coach texts, IG bio) now land on the results.
 [[redirects]]
   from = "/buy"

@@ -177,11 +177,16 @@ if(WOB_META_PIXEL_ID){
 }
 function wobTrack(name, params){ try{ if(window.fbq) window.fbq('track', name, params || {}); }catch(e){} }
 
-/* ---------- Restore language (/boletos, /comprar or ?lang=es open in Spanish) ---------- */
+/* ---------- Restore language: an explicit ?lang=en|es wins; then the saved choice;
+   then /boletos, /comprar, /resultados, /vendedores, /encuesta open in Spanish ---------- */
 try{
-  var saved = localStorage.getItem('wob-lang');
-  if(saved === 'es') setLang('es');
-  else if(!saved && (/^\/(boletos|comprar|resultados|vendedores)/.test(location.pathname) || /[?&]lang=es(&|$)/.test(location.search))) setLang('es');
+  var q = /[?&]lang=(en|es)(&|$)/.exec(location.search);
+  if(q) setLang(q[1]);
+  else {
+    var saved = localStorage.getItem('wob-lang');
+    if(saved === 'es') setLang('es');
+    else if(!saved && /^\/(boletos|comprar|resultados|vendedores|encuesta)/.test(location.pathname)) setLang('es');
+  }
 }catch(e){}
 
 /* ---------- Homepage loops: play only while on screen; posters only for reduced motion / data saver ---------- */
