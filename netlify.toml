@@ -28,16 +28,35 @@
   to = "/admin.html"
   status = 200
 
-# Public ticket page (SimpleTix embed). /boletos is the Spanish alias.
+# Official 2026 results. /resultados is the Spanish alias.
 [[redirects]]
-  from = "/tickets"
-  to = "/tickets.html"
+  from = "/results"
+  to = "/results.html"
   status = 200
 
 [[redirects]]
-  from = "/boletos"
-  to = "/tickets.html"
+  from = "/resultados"
+  to = "/results.html"
   status = 200
+
+# The 2026 event has wrapped: the old ticket links now land on the results.
+[[redirects]]
+  from = "/tickets"
+  to = "/results"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/tickets.html"
+  to = "/results"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/boletos"
+  to = "/resultados"
+  status = 302
+  force = true
 
 # Founding vendor page. /vendedores is the Spanish alias.
 [[redirects]]
@@ -50,16 +69,15 @@
   to = "/vendors.html"
   status = 200
 
-# Short links straight to the full-screen SimpleTix checkout (stage, door QR,
-# coach texts, IG bio/stories). Same page SimpleTix opens from "Get Tickets".
+# Old ticket short links (stage, door QR, coach texts, IG bio) now land on the results.
 [[redirects]]
   from = "/buy"
-  to = "https://embed.prod.simpletix.com/5e7a7eda-f3ff-45b0-a45b-bcb2cab89974/291875"
+  to = "/results"
   status = 302
 
 [[redirects]]
   from = "/comprar"
-  to = "https://embed.prod.simpletix.com/5e7a7eda-f3ff-45b0-a45b-bcb2cab89974/291875"
+  to = "/resultados"
   status = 302
 
 # Function source lives under the publish dir; don't serve it as static files.

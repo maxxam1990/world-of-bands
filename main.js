@@ -162,106 +162,6 @@ if(regForm) regForm.addEventListener('submit', function(ev){
   });
 });
 
-/* ---------- Countdown to event day ----------
-   Sunday, October 4, 2026 — doors 9:00 AM, opening ceremony 10:00 AM ET. */
-(function(){
-  var target = new Date('2026-10-04T10:00:00-04:00').getTime();
-  var over = new Date('2026-10-04T19:30:00-04:00').getTime();   /* venue is empty by 7:30 PM */
-  var elD = document.getElementById('cd-d'), elH = document.getElementById('cd-h'),
-      elM = document.getElementById('cd-m'), elS = document.getElementById('cd-s'),
-      wrap = document.getElementById('countdown'), live = document.getElementById('cd-live');
-  if(!wrap) return;
-  var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
-  function tick(){
-    var now = Date.now(), diff = target - now;
-    if(diff <= 0){
-      var done = document.getElementById('cd-done');
-      wrap.style.display = 'none';
-      if(now >= over && done){ live.style.display = 'none'; done.style.display = 'block'; clearInterval(timer); }
-      else live.style.display = 'block';   /* keeps ticking through the show so "LIVE" turns into the wrap at 7:30 */
-      return;
-    }
-    var d = Math.floor(diff / 86400000),
-        h = Math.floor(diff % 86400000 / 3600000),
-        m = Math.floor(diff % 3600000 / 60000),
-        s = Math.floor(diff % 60000 / 1000);
-    elD.textContent = d;
-    elH.textContent = pad(h);
-    elM.textContent = pad(m);
-    elS.textContent = pad(s);
-  }
-  tick();
-  var timer = setInterval(tick, 1000);
-})();
-
-/* ---------- After the event: no "Get Tickets" bar ---------- */
-(function(){
-  if(Date.now() < Date.parse('2026-10-04T19:30:00-04:00')) return;
-  var tb = document.getElementById('tix-bar'); if(tb) tb.hidden = true;
-})();
-
-/* ---------- Ticket pricing tiers (shared by index + tickets page) ----------
-   Early Bird $25 through Sep 28 11:59 PM ET · $35 online until Oct 4 10:00 AM ET
-   · $40 online/at the door after that. Mirrors the SimpleTix ticket-type windows. */
-var WOB_TIERS = {
-  earlyEnd: Date.parse('2026-09-29T23:59:59-04:00'),
-  codeEnd:  Date.parse('2026-10-03T23:59:59-04:00'),   /* band codes [BAND]25 = $10 off */
-  gaEnd:    Date.parse('2026-10-04T10:00:00-04:00')
-};
-function wobTier(){
-  var n = Date.now();
-  return n <= WOB_TIERS.earlyEnd ? 'early' : (n < WOB_TIERS.gaEnd ? 'ga' : 'door');
-}
-/* finer phase for copy + the price countdown: the band-code window sits inside GA */
-function wobPhase(){
-  var n = Date.now();
-  if(n <= WOB_TIERS.earlyEnd) return 'early';
-  if(n <= WOB_TIERS.codeEnd)  return 'code';
-  if(n <  WOB_TIERS.gaEnd)    return 'ga';
-  return 'door';
-}
-(function(){
-  var t = wobTier(), p = wobPhase(), order = ['early','ga','door'], cur = order.indexOf(t);
-  document.querySelectorAll('[data-tier]').forEach(function(el){
-    var i = order.indexOf(el.getAttribute('data-tier'));
-    el.classList.toggle('now',  i === cur);
-    el.classList.toggle('past', i <  cur);
-    el.classList.toggle('next', i >  cur);
-  });
-  /* the public countdown speaks to everyone: during the band-code window it still
-     counts to the $35 deadline (codes have their own note); labels follow the tier */
-  document.querySelectorAll('[data-tier-only]').forEach(function(el){
-    el.hidden = el.getAttribute('data-tier-only') !== t;
-  });
-  /* anything that only makes sense while band codes are valid */
-  document.querySelectorAll('[data-until="code"]').forEach(function(el){
-    el.hidden = Date.now() > WOB_TIERS.codeEnd;
-  });
-  /* shown once Early Bird is over (e.g. the one-line "ended" note) */
-  document.querySelectorAll('[data-after-early]').forEach(function(el){
-    el.hidden = t === 'early';
-  });
-
-  /* price-change countdown on the tickets page */
-  var box = document.getElementById('pcd');
-  if(!box) return;
-  var target = t === 'early' ? WOB_TIERS.earlyEnd : (t === 'ga' ? WOB_TIERS.gaEnd : 0);
-  var elD = document.getElementById('pc-d'), elH = document.getElementById('pc-h'),
-      elM = document.getElementById('pc-m'), elS = document.getElementById('pc-s');
-  var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
-  function tick(){
-    var diff = target - Date.now();
-    if(diff <= 0){ box.hidden = true; clearInterval(timer); return; }
-    elD.textContent = Math.floor(diff / 86400000);
-    elH.textContent = pad(Math.floor(diff % 86400000 / 3600000));
-    elM.textContent = pad(Math.floor(diff % 3600000 / 60000));
-    elS.textContent = pad(Math.floor(diff % 60000 / 1000));
-  }
-  if(!target){ box.hidden = true; return; }
-  tick();
-  var timer = setInterval(tick, 1000);
-})();
-
 /* ---------- Meta Pixel: OFF until you paste your Pixel ID ----------
    Events Manager → Data sources → your pixel → copy the ID (15–16 digits),
    paste it between the quotes, commit, push. Empty = nothing loads. */
@@ -277,80 +177,11 @@ if(WOB_META_PIXEL_ID){
 }
 function wobTrack(name, params){ try{ if(window.fbq) window.fbq('track', name, params || {}); }catch(e){} }
 
-/* ---------- Checkout links: straight to the full-screen SimpleTix checkout ----------
-   WOB_CHECKOUT is the same ticket page SimpleTix's own event page opens on
-   "Get Tickets" (fastest on phones and inside Instagram/Facebook browsers).
-   UTMs + fbclid from the landing URL ride along so ad clicks stay traceable. */
-var WOB_CHECKOUT = 'https://embed.prod.simpletix.com/5e7a7eda-f3ff-45b0-a45b-bcb2cab89974/291875';
-var WOB_UTM = (function(){
-  var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'], got = {};
-  try{ var q = new URLSearchParams(location.search); keys.forEach(function(k){ var v = q.get(k); if(v) got[k] = v; }); }catch(e){}
-  try{
-    if(Object.keys(got).length) sessionStorage.setItem('wob-utm', JSON.stringify(got));
-    else got = JSON.parse(sessionStorage.getItem('wob-utm') || '{}') || {};
-  }catch(e){}
-  return got;
-})();
-function wobCheckoutUrl(where){
-  var u, t = {};
-  try{ u = new URL(WOB_CHECKOUT); }catch(e){ return WOB_CHECKOUT; }
-  Object.keys(WOB_UTM).forEach(function(k){ t[k] = WOB_UTM[k]; });
-  if(!t.utm_source){ t.utm_source = 'worldofbands.com'; t.utm_medium = 'website'; t.utm_campaign = 'wob2026'; }
-  if(!t.utm_content) t.utm_content = where;
-  Object.keys(t).forEach(function(k){ u.searchParams.set(k, t[k]); });
-  return u.toString();
-}
-function wobWireCheckout(a, where){
-  a.href = wobCheckoutUrl(where);
-  a.addEventListener('click', function(){
-    wobTrack('InitiateCheckout', { value: wobTier() === 'door' ? 40 : 35, currency: 'USD', content_name: 'World of Bands 2026 pass' });
-  });
-}
-/* Instagram / Facebook / Messenger / TikTok / Snapchat in-app browsers */
-var WOB_IN_APP = /Instagram|FBAN|FBAV|FB_IAB|FB4A|FBIOS|musical_ly|BytedanceWebview|TikTok|Snapchat/i.test(navigator.userAgent || '');
-(function(){
-  document.querySelectorAll('a[data-checkout]').forEach(function(a){ wobWireCheckout(a, a.getAttribute('data-checkout')); });
-
-  /* tickets page inside an in-app browser: skip the embedded iframe checkout and
-     send every Buy button to the full-screen checkout (one tap, no nested scrolling) */
-  var box = document.getElementById('inapp-buy'), shell = document.querySelector('.buy-shell');
-  if(WOB_IN_APP && box && shell){
-    var ifr = shell.querySelector('iframe'), holder = ifr ? ifr.parentNode : null;
-    if(ifr) holder.removeChild(ifr);   /* stops it loading in the app browser */
-    shell.hidden = true;
-    box.hidden = false;
-    document.querySelectorAll('a[href="#buy"]').forEach(function(a){
-      if(a.id === 'show-embed') return;
-      wobWireCheckout(a, 'inapp_' + (a.closest('.hero') ? 'hero' : 'page'));
-    });
-    var show = document.getElementById('show-embed');
-    if(show) show.addEventListener('click', function(ev){
-      ev.preventDefault();
-      if(ifr && !ifr.parentNode) holder.appendChild(ifr);
-      shell.hidden = false; box.hidden = true;
-      shell.scrollIntoView();
-    });
-  }
-
-  /* sticky bar (phones): out of the way while the checkout section is on screen */
-  var bar = document.getElementById('tix-bar'), buy = document.getElementById('buy'), buyOnScreen = false;
-  if(bar && buy && 'IntersectionObserver' in window){
-    new IntersectionObserver(function(es){
-      es.forEach(function(e){ buyOnScreen = e.isIntersecting; bar.classList.toggle('off', buyOnScreen); });
-    }, { threshold: 0.05 }).observe(buy);
-  }
-  /* ...and while someone is typing in a form (keeps the keyboard area clear) */
-  if(bar){
-    document.addEventListener('focusin', function(e){ if(e.target.matches && e.target.matches('input,textarea,select')) bar.classList.add('off'); });
-    document.addEventListener('focusout', function(){ if(!buyOnScreen) bar.classList.remove('off'); });
-  }
-})();
-
 /* ---------- Restore language (/boletos, /comprar or ?lang=es open in Spanish) ---------- */
 try{
   var saved = localStorage.getItem('wob-lang');
   if(saved === 'es') setLang('es');
-  else if(!saved && (/^\/(boletos|comprar)/.test(location.pathname) || /[?&]lang=es(&|$)/.test(location.search))) setLang('es');
+  else if(!saved && (/^\/(boletos|comprar|resultados|vendedores)/.test(location.pathname) || /[?&]lang=es(&|$)/.test(location.search))) setLang('es');
 }catch(e){}
 
 /* ---------- Homepage loops: play only while on screen; posters only for reduced motion / data saver ---------- */
@@ -362,4 +193,50 @@ try{
     es.forEach(function(e){ var v = e.target; if(e.isIntersecting){ var p = v.play(); if(p && p.catch) p.catch(function(){}); } else { v.pause(); } });
   }, { threshold: 0.35 });
   vids.forEach(function(v){ io.observe(v); });
+})();
+
+/* ---------- "Keep me posted" (Netlify form wob-updates; results page + homepage) ---------- */
+(function(){
+  var f = document.getElementById('stay-form'); if(!f) return;
+  f.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var email = (document.getElementById('s-email').value || '').trim();
+    var err = document.getElementById('s-error'), net = document.getElementById('s-neterror');
+    net.style.display = 'none';
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ err.style.display = 'block'; return; }
+    err.style.display = 'none';
+    var btn = f.querySelector('button[type="submit"]'); btn.disabled = true;
+    var src = f.querySelector('input[name="source"]');
+    var body = new URLSearchParams({ 'form-name': 'wob-updates', 'email': email, 'source': src ? src.value : 'site',
+      'language': document.documentElement.classList.contains('es') ? 'Spanish' : 'English' });
+    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() })
+      .then(function(r){ if(!r.ok) throw new Error(r.status); f.style.display = 'none'; document.getElementById('stay-ok').classList.add('show'); })
+      .catch(function(){ net.style.display = 'block'; btn.disabled = false; });
+  });
+})();
+
+/* ---------- Motion (Oct 6 2026): stat count-up. The real number stays in the HTML (no-JS / reduced motion keep it as is) ---------- */
+(function(){
+  var els = document.querySelectorAll('.stats .stat i[data-count]');
+  if(!els.length || !('IntersectionObserver' in window) || !window.requestAnimationFrame) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function run(el){
+    var to = parseInt(el.getAttribute('data-count'), 10), t0 = null, dur = 900;
+    if(isNaN(to) || String(to) !== el.textContent.trim()) return;  /* skip anything non-numeric */
+    var done = false;
+    el.textContent = '0';
+    function tick(ts){
+      if(done) return;
+      if(t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      el.textContent = p < 1 ? Math.round(to * (1 - Math.pow(1 - p, 3))) : to;  /* ease-out cubic */
+      if(p < 1) window.requestAnimationFrame(tick); else done = true;
+    }
+    window.requestAnimationFrame(tick);
+    setTimeout(function(){ done = true; el.textContent = to; }, dur + 250);  /* never leave a partial number if frames stall */
+  }
+  var cio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ cio.unobserve(e.target); run(e.target); } });
+  }, { threshold: .12 });
+  Array.prototype.forEach.call(els, function(el){ cio.observe(el); });
 })();
