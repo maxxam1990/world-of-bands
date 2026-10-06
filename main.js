@@ -195,7 +195,24 @@ try{
   vids.forEach(function(v){ io.observe(v); });
 })();
 
-/* ---------- "Keep me posted" (Netlify form wob-updates; results page + homepage) ---------- */
+/* ---------- "Keep me posted" → Mailchimp audience "World of Bands Florida" ----------
+   JSONP to Mailchimp's post-json endpoint (no page reload, inline success). If Mailchimp
+   cannot be reached, the email falls back to the Netlify form "wob-updates" so no lead is lost. */
+var WOB_MC = {
+  url: 'https://theworldofmusicschool.us5.list-manage.com/subscribe/post-json?u=c664f83591156fef1c001bfeb&id=d4698be95b&f_id=00febeedf0',
+  honeypot: 'b_c664f83591156fef1c001bfeb_d4698be95b',
+  tag: '4539232'   /* "site signup" */
+};
+function wobMcSubscribe(email, cb){
+  var name = 'wob_mc_' + Date.now(), done = false;
+  var s = document.createElement('script');
+  function finish(err, res){ if(done) return; done = true; try{ delete window[name]; }catch(e){ window[name] = undefined; } if(s.parentNode) s.parentNode.removeChild(s); cb(err, res); }
+  window[name] = function(res){ finish(null, res); };
+  s.onerror = function(){ finish(new Error('load')); };
+  s.src = WOB_MC.url + '&EMAIL=' + encodeURIComponent(email) + '&tags=' + WOB_MC.tag + '&' + WOB_MC.honeypot + '=&c=' + name;
+  document.head.appendChild(s);
+  setTimeout(function(){ finish(new Error('timeout')); }, 8000);
+}
 (function(){
   var f = document.getElementById('stay-form'); if(!f) return;
   f.addEventListener('submit', function(ev){
@@ -207,36 +224,20 @@ try{
     err.style.display = 'none';
     var btn = f.querySelector('button[type="submit"]'); btn.disabled = true;
     var src = f.querySelector('input[name="source"]');
-    var body = new URLSearchParams({ 'form-name': 'wob-updates', 'email': email, 'source': src ? src.value : 'site',
-      'language': document.documentElement.classList.contains('es') ? 'Spanish' : 'English' });
-    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() })
-      .then(function(r){ if(!r.ok) throw new Error(r.status); f.style.display = 'none'; document.getElementById('stay-ok').classList.add('show'); })
-      .catch(function(){ net.style.display = 'block'; btn.disabled = false; });
-  });
-})();
-
-/* ---------- Motion (Oct 6 2026): stat count-up. The real number stays in the HTML (no-JS / reduced motion keep it as is) ---------- */
-(function(){
-  var els = document.querySelectorAll('.stats .stat i[data-count]');
-  if(!els.length || !('IntersectionObserver' in window) || !window.requestAnimationFrame) return;
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  function run(el){
-    var to = parseInt(el.getAttribute('data-count'), 10), t0 = null, dur = 900;
-    if(isNaN(to) || String(to) !== el.textContent.trim()) return;  /* skip anything non-numeric */
-    var done = false;
-    el.textContent = '0';
-    function tick(ts){
-      if(done) return;
-      if(t0 === null) t0 = ts;
-      var p = Math.min((ts - t0) / dur, 1);
-      el.textContent = p < 1 ? Math.round(to * (1 - Math.pow(1 - p, 3))) : to;  /* ease-out cubic */
-      if(p < 1) window.requestAnimationFrame(tick); else done = true;
+    var isEs = document.documentElement.classList.contains('es');
+    function ok(){ f.style.display = 'none'; document.getElementById('stay-ok').classList.add('show'); }
+    function fail(){ net.style.display = 'block'; btn.disabled = false; }
+    function netlifyFallback(){
+      var body = new URLSearchParams({ 'form-name': 'wob-updates', 'email': email, 'source': src ? src.value : 'site', 'language': isEs ? 'Spanish' : 'English' });
+      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() })
+        .then(function(r){ if(!r.ok) throw new Error(r.status); ok(); }).catch(fail);
     }
-    window.requestAnimationFrame(tick);
-    setTimeout(function(){ done = true; el.textContent = to; }, dur + 250);  /* never leave a partial number if frames stall */
-  }
-  var cio = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ cio.unobserve(e.target); run(e.target); } });
-  }, { threshold: .12 });
-  Array.prototype.forEach.call(els, function(el){ cio.observe(el); });
+    wobMcSubscribe(email, function(e, res){
+      if(e || !res){ netlifyFallback(); return; }
+      if(res.result === 'success' || /already subscribed/i.test(res.msg || '')){ ok(); return; }
+      /* Mailchimp rejected the address (typo, blocked domain...): show its reason, keep the form */
+      err.textContent = (res.msg || '').replace(/^\d+\s*-\s*/, '').replace(/<[^>]+>/g, '') || (isEs ? 'Por favor ingresa un correo válido.' : 'Please enter a valid email.');
+      err.style.display = 'block'; btn.disabled = false;
+    });
+  });
 })();
